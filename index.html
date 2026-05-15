@@ -577,7 +577,7 @@ body{font-family:var(--sans);background:var(--off-white);color:var(--text-body);
 .drive-file{border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;cursor:pointer;transition:all 0.3s ease;background:var(--white);display:flex;flex-direction:column}
 .drive-file:hover{box-shadow:var(--shadow-md);transform:translateY(-2px);border-color:var(--border-gold)}
 /* A4 ratio 1:1.414 */
-.drive-file-thumb{width:100%;aspect-ratio:1/1.414;object-fit:cover;background:var(--off-white);display:block;flex-shrink:0}
+.drive-file-thumb{width:100%;aspect-ratio:1/1.414;object-fit:cover;object-position:top center;background:var(--off-white);display:block;flex-shrink:0;max-height:none}
 .drive-file-thumb-placeholder{
   width:100%;aspect-ratio:1/1.414;
   background:linear-gradient(160deg,var(--cream) 0%,var(--off-white) 100%);
@@ -2019,10 +2019,10 @@ function renderDriveFiles(files){
       else if(f.mime_type.indexOf('spreadsheet')>-1) ext='XLS';
       else if(f.mime_type==='application/pdf') ext='PDF';
     }
-    var placeholder='<div class="drive-file-thumb-placeholder">'+iconSvg+'<span>'+ext+'</span></div>';
+    var placeholder='<div class="drive-file-thumb-placeholder" style="display:none">'+iconSvg+'<span>'+ext+'</span></div>';
     var thumb=f.thumbnail_url
-      ?'<img class="drive-file-thumb" src="'+f.thumbnail_url+'" alt="" loading="lazy" id="dft-'+escHtml(f.id||'')+'" onload="this.style.opacity=1" onerror="ivHideThumb(this)">'+placeholder
-      :placeholder;
+      ?'<img class="drive-file-thumb" src="'+f.thumbnail_url+'" alt="" loading="lazy" onerror="ivHideThumb(this)">'+placeholder
+      :('<div class="drive-file-thumb-placeholder">'+iconSvg+'<span>'+ext+'</span></div>');
     var viewBtn=f.view_url
       ?'<button class="drive-file-btn primary" onclick="abrirPdf('+JSON.stringify(f.view_url)+','+JSON.stringify(f.name||'Arquivo')+')">'+eyeSvg+' Ver</button>'
       :'';
