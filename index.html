@@ -1063,19 +1063,307 @@ body{font-family:var(--sans);background:var(--off-white);color:var(--text-body);
     </a>
 
     <!-- IRREGULAR VERBS -->
-    <a href="https://institutomdtalk.github.io/irregularverbs/" target="_blank" rel="noopener" class="card card--form reveal" style="grid-column:1/-1">
+    <div class="card reveal" id="card-irregular-verbs" style="grid-column:1/-1;cursor:default">
       <div class="card-pad">
-        <div class="form-icon-wrap"><div class="form-icon-ring"></div>
-          <svg class="form-icon-svg" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/><path d="M8 7h8"/><path d="M8 11h5"/></svg>
+
+        <!-- Cabeçalho clicável -->
+        <div style="display:flex;align-items:center;gap:16px;cursor:pointer" onclick="toggleIrregularVerbs()">
+          <div class="form-icon-wrap" style="flex-shrink:0"><div class="form-icon-ring"></div>
+            <svg class="form-icon-svg" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/><path d="M8 7h8"/><path d="M8 11h5"/></svg>
+          </div>
+          <div style="flex:1">
+            <p class="card-overline">Referência</p>
+            <h3 class="card-title" style="margin-bottom:4px">Irregular Verbs</h3>
+            <p class="card-desc">Lista completa com tradução — passe o mouse sobre qualquer verbo para ver o significado.</p>
+          </div>
+          <div id="iv-chevron" style="flex-shrink:0;width:32px;height:32px;border:1px solid var(--border-gold);border-radius:50%;display:flex;align-items:center;justify-content:center;transition:all 0.35s ease">
+            <svg id="iv-chevron-svg" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:12px;height:12px;transition:transform 0.35s ease"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
         </div>
-        <div class="form-content">
-          <p class="card-overline">Referência</p>
-          <h3 class="card-title">Irregular Verbs</h3>
-          <p class="card-desc">Lista completa de verbos irregulares com pronúncia, formas e exemplos em contexto de negócios.</p>
+
+        <!-- Conteúdo retrátil -->
+        <div id="iv-collapse" style="max-height:0;overflow:hidden;transition:max-height 0.7s cubic-bezier(0.22,1,0.36,1)">
+          <div style="padding-top:24px">
+
+            <!-- Legenda das colunas -->
+            <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:4px;margin-bottom:8px;padding:0 2px">
+              <span style="font-size:8px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gold)">Base</span>
+              <span style="font-size:8px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted)">Past Simple</span>
+              <span style="font-size:8px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted)">Past Participle</span>
+              <span style="font-size:8px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted)">Tradução</span>
+            </div>
+
+            <!-- INICIANTE -->
+            <div class="iv-level-header" onclick="toggleIvLevel('iv-beginner')">
+              <span class="iv-level-badge iv-beginner-badge">Iniciante</span>
+              <span class="iv-level-count">40 verbos</span>
+              <svg class="iv-level-chevron" id="iv-beginner-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+            <div id="iv-beginner" class="iv-level-body iv-open">
+              <div class="iv-verb-grid" id="iv-beginner-grid"></div>
+            </div>
+
+            <!-- INTERMEDIÁRIO -->
+            <div class="iv-level-header" onclick="toggleIvLevel('iv-intermediate')">
+              <span class="iv-level-badge iv-intermediate-badge">Intermediário</span>
+              <span class="iv-level-count">50 verbos</span>
+              <svg class="iv-level-chevron" id="iv-intermediate-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+            <div id="iv-intermediate" class="iv-level-body">
+              <div class="iv-verb-grid" id="iv-intermediate-grid"></div>
+            </div>
+
+            <!-- AVANÇADO -->
+            <div class="iv-level-header" onclick="toggleIvLevel('iv-advanced')">
+              <span class="iv-level-badge iv-advanced-badge">Avançado</span>
+              <span class="iv-level-count">40 verbos</span>
+              <svg class="iv-level-chevron" id="iv-advanced-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+            <div id="iv-advanced" class="iv-level-body">
+              <div class="iv-verb-grid" id="iv-advanced-grid"></div>
+            </div>
+
+          </div>
         </div>
-        <span class="form-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></span>
       </div>
-    </a>
+    </div>
+
+    <style>
+    .iv-level-header{display:flex;align-items:center;gap:10px;padding:12px 0;cursor:pointer;border-top:1px solid var(--border);margin-top:8px;user-select:none}
+    .iv-level-header:first-of-type{margin-top:0}
+    .iv-level-badge{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:3px 12px;border-radius:20px}
+    .iv-beginner-badge{background:rgba(34,197,94,0.1);color:#166534}
+    .iv-intermediate-badge{background:rgba(196,164,90,0.12);color:#6B4D10}
+    .iv-advanced-badge{background:rgba(99,102,241,0.1);color:#3730a3}
+    .iv-level-count{font-size:10px;color:var(--text-muted);letter-spacing:1px;flex:1}
+    .iv-level-chevron{width:11px;height:11px;stroke:var(--text-muted);transition:transform 0.35s ease;flex-shrink:0}
+    .iv-level-body{max-height:0;overflow:hidden;transition:max-height 0.6s cubic-bezier(0.22,1,0.36,1)}
+    .iv-level-body.iv-open{max-height:4000px}
+    .iv-level-body.iv-open ~ .iv-level-header .iv-level-chevron,
+    .iv-open-chev{transform:rotate(180deg)}
+    .iv-verb-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;padding:8px 0 12px}
+    /* row */
+    .iv-row{display:contents}
+    .iv-cell{
+      padding:7px 8px;font-size:12.5px;font-family:var(--sans);
+      color:var(--text-body);line-height:1.4;border-bottom:1px solid var(--border);
+    }
+    .iv-cell.iv-base{font-weight:600;color:var(--navy)}
+    .iv-cell.iv-pt{font-size:12px;color:var(--text-muted);font-style:italic}
+    /* Tooltip row — hover em qualquer célula da linha */
+    .iv-row:hover .iv-cell{background:var(--gold-faint)}
+    .iv-row:hover .iv-cell.iv-base{color:var(--gold)}
+    /* Tooltip translation badge */
+    .iv-cell.iv-pt{display:flex;align-items:center}
+    .iv-tt{
+      display:inline-block;
+      background:var(--navy);color:var(--white);
+      font-size:10px;font-weight:600;letter-spacing:0.5px;
+      padding:2px 8px;border-radius:3px;
+      opacity:0;transform:translateX(-4px);
+      transition:opacity 0.2s ease,transform 0.2s ease;
+      pointer-events:none;white-space:nowrap;
+    }
+    .iv-row:hover .iv-tt{opacity:1;transform:translateX(0)}
+    @media(max-width:600px){
+      .iv-verb-grid{grid-template-columns:1fr 1fr}
+      .iv-cell.iv-pp,.iv-cell.iv-pt{display:none}
+    }
+    </style>
+
+    <script>
+    // ── Dados dos verbos irregulares ──
+    var IV_DATA = {
+      beginner: [
+        ['be','was/were','been','ser/estar'],
+        ['have','had','had','ter'],
+        ['do','did','done','fazer'],
+        ['go','went','gone','ir'],
+        ['get','got','got/gotten','obter/ficar'],
+        ['come','came','come','vir'],
+        ['see','saw','seen','ver'],
+        ['know','knew','known','saber/conhecer'],
+        ['think','thought','thought','pensar'],
+        ['say','said','said','dizer'],
+        ['make','made','made','fazer/criar'],
+        ['take','took','taken','pegar/levar'],
+        ['give','gave','given','dar'],
+        ['find','found','found','encontrar'],
+        ['tell','told','told','contar/dizer'],
+        ['feel','felt','felt','sentir'],
+        ['put','put','put','colocar'],
+        ['bring','brought','brought','trazer'],
+        ['buy','bought','bought','comprar'],
+        ['keep','kept','kept','manter/guardar'],
+        ['leave','left','left','deixar/sair'],
+        ['let','let','let','deixar/permitir'],
+        ['lose','lost','lost','perder'],
+        ['meet','met','met','encontrar/conhecer'],
+        ['pay','paid','paid','pagar'],
+        ['read','read','read','ler'],
+        ['run','ran','run','correr'],
+        ['send','sent','sent','enviar'],
+        ['sit','sat','sat','sentar'],
+        ['speak','spoke','spoken','falar'],
+        ['stand','stood','stood','ficar de pé'],
+        ['teach','taught','taught','ensinar'],
+        ['write','wrote','written','escrever'],
+        ['eat','ate','eaten','comer'],
+        ['drink','drank','drunk','beber'],
+        ['sleep','slept','slept','dormir'],
+        ['hear','heard','heard','ouvir'],
+        ['hold','held','held','segurar/manter'],
+        ['sell','sold','sold','vender'],
+        ['win','won','won','vencer/ganhar'],
+      ],
+      intermediate: [
+        ['arise','arose','arisen','surgir/levantar'],
+        ['bear','bore','born/borne','suportar/carregar'],
+        ['beat','beat','beaten','bater/vencer'],
+        ['become','became','become','tornar-se'],
+        ['begin','began','begun','começar'],
+        ['bend','bent','bent','curvar/dobrar'],
+        ['bind','bound','bound','ligar/amarrar'],
+        ['bite','bit','bitten','morder'],
+        ['bleed','bled','bled','sangrar'],
+        ['blow','blew','blown','soprar'],
+        ['break','broke','broken','quebrar'],
+        ['breed','bred','bred','criar/reproduzir'],
+        ['build','built','built','construir'],
+        ['burn','burned/burnt','burned/burnt','queimar'],
+        ['burst','burst','burst','explodir'],
+        ['catch','caught','caught','pegar/capturar'],
+        ['choose','chose','chosen','escolher'],
+        ['cut','cut','cut','cortar'],
+        ['deal','dealt','dealt','lidar/negociar'],
+        ['dig','dug','dug','cavar'],
+        ['draw','drew','drawn','desenhar/puxar'],
+        ['dream','dreamed/dreamt','dreamed/dreamt','sonhar'],
+        ['drive','drove','driven','dirigir'],
+        ['fall','fell','fallen','cair'],
+        ['feed','fed','fed','alimentar'],
+        ['fight','fought','fought','lutar'],
+        ['fly','flew','flown','voar'],
+        ['forbid','forbade','forbidden','proibir'],
+        ['forget','forgot','forgotten','esquecer'],
+        ['forgive','forgave','forgiven','perdoar'],
+        ['freeze','froze','frozen','congelar'],
+        ['grow','grew','grown','crescer'],
+        ['hang','hung','hung','pendurar'],
+        ['hide','hid','hidden','esconder'],
+        ['hit','hit','hit','acertar/bater'],
+        ['hurt','hurt','hurt','machucar'],
+        ['lay','laid','laid','colocar/deitar'],
+        ['lead','led','led','liderar/conduzir'],
+        ['learn','learned/learnt','learned/learnt','aprender'],
+        ['lend','lent','lent','emprestar'],
+        ['lie','lay','lain','deitar-se'],
+        ['light','lit','lit','acender'],
+        ['mean','meant','meant','significar'],
+        ['ride','rode','ridden','andar/cavalgar'],
+        ['ring','rang','rung','tocar/ligar'],
+        ['rise','rose','risen','subir/levantar'],
+        ['set','set','set','definir/ajustar'],
+        ['shake','shook','shaken','sacudir'],
+        ['show','showed','shown','mostrar'],
+        ['shut','shut','shut','fechar'],
+        ['sing','sang','sung','cantar'],
+      ],
+      advanced: [
+        ['sink','sank','sunk','afundar'],
+        ['smell','smelled/smelt','smelled/smelt','cheirar'],
+        ['spell','spelled/spelt','spelled/spelt','soletrar'],
+        ['spend','spent','spent','gastar/passar tempo'],
+        ['spin','spun','spun','girar/fiar'],
+        ['spread','spread','spread','espalhar'],
+        ['spring','sprang','sprung','pular/brotar'],
+        ['steal','stole','stolen','roubar'],
+        ['stick','stuck','stuck','grudar/fixar'],
+        ['sting','stung','stung','picar/ferroar'],
+        ['stink','stank','stunk','feder'],
+        ['stride','strode','stridden','caminhar a passos largos'],
+        ['strike','struck','struck','golpear/bater'],
+        ['strive','strove','striven','esforçar-se'],
+        ['swear','swore','sworn','jurar/xingar'],
+        ['sweep','swept','swept','varrer'],
+        ['swim','swam','swum','nadar'],
+        ['swing','swung','swung','balançar'],
+        ['tear','tore','torn','rasgar'],
+        ['throw','threw','thrown','jogar/lançar'],
+        ['thrust','thrust','thrust','empurrar com força'],
+        ['tread','trod','trodden','pisar'],
+        ['undergo','underwent','undergone','submeter-se a'],
+        ['understand','understood','understood','entender'],
+        ['undo','undid','undone','desfazer'],
+        ['upset','upset','upset','perturbar/virar'],
+        ['wake','woke','woken','acordar'],
+        ['wear','wore','worn','usar/vestir'],
+        ['weave','wove','woven','tecer'],
+        ['weep','wept','wept','chorar'],
+        ['withdraw','withdrew','withdrawn','retirar/sacar'],
+        ['withhold','withheld','withheld','reter/negar'],
+        ['withstand','withstood','withstood','resistir a'],
+        ['wring','wrung','wrung','torcer/espremer'],
+        ['forecast','forecast','forecast','prever'],
+        ['input','input','input','inserir/alimentar'],
+        ['output','output','output','produzir/emitir'],
+        ['offset','offset','offset','compensar/contrapor'],
+        ['override','overrode','overridden','sobrepor/anular'],
+        ['oversee','oversaw','overseen','supervisionar'],
+      ]
+    };
+
+    var _ivOpen = false;
+
+    function toggleIrregularVerbs() {
+      var col = document.getElementById('iv-collapse');
+      var chevSvg = document.getElementById('iv-chevron-svg');
+      var chevWrap = document.getElementById('iv-chevron');
+      _ivOpen = !_ivOpen;
+      if (_ivOpen) {
+        col.style.maxHeight = '8000px';
+        chevSvg.style.transform = 'rotate(180deg)';
+        chevWrap.style.background = 'var(--gold-faint)';
+        // Renderiza grids na primeira abertura
+        if (!document.getElementById('iv-beginner-grid').hasChildNodes()) {
+          renderIvGrid('iv-beginner-grid', IV_DATA.beginner);
+          renderIvGrid('iv-intermediate-grid', IV_DATA.intermediate);
+          renderIvGrid('iv-advanced-grid', IV_DATA.advanced);
+        }
+      } else {
+        col.style.maxHeight = '0';
+        chevSvg.style.transform = 'rotate(0deg)';
+        chevWrap.style.background = '';
+      }
+    }
+
+    function renderIvGrid(gridId, verbs) {
+      var grid = document.getElementById(gridId);
+      if (!grid) return;
+      grid.innerHTML = verbs.map(function(v) {
+        return '<div class="iv-row">'+
+          '<div class="iv-cell iv-base">'+v[0]+'</div>'+
+          '<div class="iv-cell">'+v[1]+'</div>'+
+          '<div class="iv-cell iv-pp">'+v[2]+'</div>'+
+          '<div class="iv-cell iv-pt"><span class="iv-tt">'+v[3]+'</span></div>'+
+        '</div>';
+      }).join('');
+    }
+
+    function toggleIvLevel(id) {
+      var body = document.getElementById(id);
+      var chevId = id + '-chev';
+      var chev = document.getElementById(chevId);
+      var isOpen = body.classList.toggle('iv-open');
+      if (chev) chev.style.transform = isOpen ? 'rotate(180deg)' : 'rotate(0deg)';
+    }
+
+    // Abre beginner por padrão ao renderizar
+    document.addEventListener('DOMContentLoaded', function() {
+      var begChev = document.getElementById('iv-beginner-chev');
+      if (begChev) begChev.style.transform = 'rotate(180deg)';
+    });
+    </script>
 
     <!-- ── RECURSOS PREMIUM (Caderno / Locked) ── -->
     <div style="grid-column:1/-1;position:relative">
