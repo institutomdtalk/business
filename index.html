@@ -904,12 +904,12 @@ body{font-family:var(--sans);background:var(--off-white);color:var(--text-body);
     </div>
 
     <!-- ARQUIVOS DRIVE (seção dinâmica) -->
-    <div id="drive-files-section" class="card reveal" style="grid-column:1/-1;display:none">
+    <div id="drive-files-section" class="card reveal" style="grid-column:1/-1">
       <div class="card-pad">
         <span class="card-overline">Materiais Recentes</span>
         <h3 class="card-title" style="margin-bottom:4px">Arquivos do Programa</h3>
         <p class="card-desc" style="margin-bottom:4px">Documentos disponibilizados nas suas sessões.</p>
-        <div class="drive-grid" id="drive-files-grid"></div>
+        <div id="drive-files-grid" style="margin-top:12px"><p style="font-size:13px;color:var(--text-muted);font-style:italic">Carregando arquivos...</p></div>
       </div>
     </div>
 
@@ -1035,20 +1035,25 @@ body{font-family:var(--sans);background:var(--off-white);color:var(--text-body);
 
         <!-- Conteúdo retrátil -->
         <div id="iv-collapse" style="max-height:0;overflow:hidden;transition:max-height 0.7s cubic-bezier(0.22,1,0.36,1)">
-          <div style="padding-top:24px">
+          <div style="padding-top:20px">
 
-            <!-- Legenda das colunas -->
-            <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:4px;margin-bottom:8px;padding:0 2px">
-              <span style="font-size:8px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gold)">Base</span>
-              <span style="font-size:8px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted)">Past Simple</span>
-              <span style="font-size:8px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted)">Past Participle</span>
-              <span style="font-size:8px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted)">Tradução</span>
+            <!-- Stats globais -->
+            <div class="iv-global-stats">
+              <div class="iv-stat-pill">Total <strong>130</strong></div>
+              <div class="iv-stat-pill iv-stat-known">Conhecidos <strong id="iv-global-known">0</strong></div>
+              <div class="iv-global-prog-wrap"><div class="iv-global-prog-bar" id="iv-global-bar" style="width:0%"></div></div>
+              <span class="iv-pct" id="iv-global-pct">0%</span>
+              <span class="iv-saving" id="iv-saving"></span>
             </div>
 
             <!-- INICIANTE -->
             <div class="iv-level-header" onclick="toggleIvLevel('iv-beginner')">
               <span class="iv-level-badge iv-beginner-badge">Iniciante</span>
-              <span class="iv-level-count">40 verbos</span>
+              <div class="iv-level-meta">
+                <span class="iv-level-count">40 verbos</span>
+                <span class="iv-level-known" id="iv-known-beginner">0 / 40 conhecidos</span>
+                <div class="iv-level-prog"><div class="iv-level-prog-bar" id="iv-prog-beginner" style="width:0%"></div></div>
+              </div>
               <svg class="iv-level-chevron" id="iv-beginner-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
             </div>
             <div id="iv-beginner" class="iv-level-body iv-open">
@@ -1058,7 +1063,11 @@ body{font-family:var(--sans);background:var(--off-white);color:var(--text-body);
             <!-- INTERMEDIÁRIO -->
             <div class="iv-level-header" onclick="toggleIvLevel('iv-intermediate')">
               <span class="iv-level-badge iv-intermediate-badge">Intermediário</span>
-              <span class="iv-level-count">50 verbos</span>
+              <div class="iv-level-meta">
+                <span class="iv-level-count">50 verbos</span>
+                <span class="iv-level-known" id="iv-known-intermediate">0 / 50 conhecidos</span>
+                <div class="iv-level-prog"><div class="iv-level-prog-bar" id="iv-prog-intermediate" style="width:0%"></div></div>
+              </div>
               <svg class="iv-level-chevron" id="iv-intermediate-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
             </div>
             <div id="iv-intermediate" class="iv-level-body">
@@ -1068,7 +1077,11 @@ body{font-family:var(--sans);background:var(--off-white);color:var(--text-body);
             <!-- AVANÇADO -->
             <div class="iv-level-header" onclick="toggleIvLevel('iv-advanced')">
               <span class="iv-level-badge iv-advanced-badge">Avançado</span>
-              <span class="iv-level-count">40 verbos</span>
+              <div class="iv-level-meta">
+                <span class="iv-level-count">40 verbos</span>
+                <span class="iv-level-known" id="iv-known-advanced">0 / 40 conhecidos</span>
+                <div class="iv-level-prog"><div class="iv-level-prog-bar" id="iv-prog-advanced" style="width:0%"></div></div>
+              </div>
               <svg class="iv-level-chevron" id="iv-advanced-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
             </div>
             <div id="iv-advanced" class="iv-level-body">
@@ -1081,35 +1094,45 @@ body{font-family:var(--sans);background:var(--off-white);color:var(--text-body);
     </div>
 
     <style>
+    /* ── IV: estrutura de níveis ── */
     .iv-level-header{display:flex;align-items:center;gap:10px;padding:12px 0;cursor:pointer;border-top:1px solid var(--border);margin-top:8px;user-select:none}
-    .iv-level-header:first-of-type{margin-top:0}
     .iv-level-badge{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:3px 12px;border-radius:20px}
     .iv-beginner-badge{background:rgba(34,197,94,0.1);color:#166534}
     .iv-intermediate-badge{background:rgba(196,164,90,0.12);color:#6B4D10}
     .iv-advanced-badge{background:rgba(99,102,241,0.1);color:#3730a3}
-    .iv-level-count{font-size:10px;color:var(--text-muted);letter-spacing:1px;flex:1}
+    .iv-level-meta{display:flex;align-items:center;gap:8px;flex:1;min-width:0}
+    .iv-level-count{font-size:10px;color:var(--text-muted);letter-spacing:1px}
+    .iv-level-known{font-size:10px;font-weight:700;color:#166534;letter-spacing:0.5px;white-space:nowrap}
     .iv-level-chevron{width:11px;height:11px;stroke:var(--text-muted);transition:transform 0.35s ease;flex-shrink:0}
     .iv-level-body{max-height:0;overflow:hidden;transition:max-height 0.6s cubic-bezier(0.22,1,0.36,1)}
-    .iv-level-body.iv-open{max-height:4000px}
-    .iv-level-body.iv-open ~ .iv-level-header .iv-level-chevron,
-    .iv-open-chev{transform:rotate(180deg)}
-    .iv-verb-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;padding:8px 0 12px}
-    /* row */
-    .iv-row{display:contents}
+    .iv-level-body.iv-open{max-height:6000px}
+    /* ── IV: mini progress bar por nível ── */
+    .iv-level-prog{flex:1;max-width:80px;height:3px;background:var(--border);border-radius:2px;overflow:hidden}
+    .iv-level-prog-bar{height:100%;background:#22c55e;border-radius:2px;transition:width 0.4s ease}
+    /* ── IV: grid de verbos ── */
+    .iv-verb-grid{display:grid;grid-template-columns:28px repeat(4,1fr);gap:0;padding:4px 0 8px}
+    .iv-col-head{font-size:8px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:4px 8px 8px;color:var(--text-muted);border-bottom:1px solid var(--border)}
+    .iv-col-head:first-child{padding-left:4px}
+    /* ── IV: linha de verbo ── */
+    .iv-row{display:contents;cursor:pointer}
     .iv-cell{
       padding:7px 8px;font-size:12.5px;font-family:var(--sans);
       color:var(--text-body);line-height:1.4;border-bottom:1px solid var(--border);
+      transition:background 0.15s ease;
     }
+    .iv-cell.iv-check-cell{padding:7px 4px;display:flex;align-items:center;justify-content:center;border-bottom:1px solid var(--border)}
     .iv-cell.iv-base{font-weight:600;color:var(--navy)}
-    .iv-cell.iv-pt{font-size:12px;color:var(--text-muted);font-style:italic}
-    /* Tooltip row — hover em qualquer célula da linha */
-    .iv-row:hover .iv-cell{background:var(--gold-faint)}
+    .iv-cell.iv-pt{font-size:12px;color:var(--text-muted);display:flex;align-items:center}
+    /* hover row */
+    .iv-row:hover .iv-cell,.iv-row:hover .iv-cell.iv-check-cell{background:var(--gold-faint)}
     .iv-row:hover .iv-cell.iv-base{color:var(--gold)}
-    /* Tooltip translation badge */
-    .iv-cell.iv-pt{display:flex;align-items:center}
+    /* known row */
+    .iv-row.iv-known .iv-cell,.iv-row.iv-known .iv-cell.iv-check-cell{background:rgba(34,197,94,0.04)}
+    .iv-row.iv-known .iv-cell.iv-base{color:#166534}
+    .iv-row.iv-known .iv-cell{color:var(--text-muted)}
+    /* tooltip tradução */
     .iv-tt{
-      display:inline-block;
-      background:var(--navy);color:var(--white);
+      display:inline-block;background:var(--navy);color:var(--white);
       font-size:10px;font-weight:600;letter-spacing:0.5px;
       padding:2px 8px;border-radius:3px;
       opacity:0;transform:translateX(-4px);
@@ -1117,14 +1140,41 @@ body{font-family:var(--sans);background:var(--off-white);color:var(--text-body);
       pointer-events:none;white-space:nowrap;
     }
     .iv-row:hover .iv-tt{opacity:1;transform:translateX(0)}
+    /* checkbox customizado */
+    .iv-checkbox{
+      width:16px;height:16px;border-radius:3px;
+      border:1.5px solid var(--border-gold);
+      background:none;cursor:pointer;
+      display:flex;align-items:center;justify-content:center;
+      transition:all 0.2s ease;flex-shrink:0;
+    }
+    .iv-checkbox svg{width:9px;height:9px;stroke:#fff;fill:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;opacity:0;transition:opacity 0.15s ease}
+    .iv-checkbox.iv-checked{background:#22c55e;border-color:#22c55e}
+    .iv-checkbox.iv-checked svg{opacity:1}
+    /* saving indicator */
+    .iv-saving{display:none;font-size:9px;color:var(--text-muted);letter-spacing:1px;margin-left:auto;align-self:center}
+    .iv-saving.show{display:block}
+    /* totais globais */
+    .iv-global-stats{display:flex;align-items:center;gap:16px;padding:14px 0 4px;flex-wrap:wrap}
+    .iv-stat-pill{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--text-muted)}
+    .iv-stat-pill strong{font-family:var(--serif);font-size:1.15rem;font-weight:600;color:var(--navy)}
+    .iv-stat-pill.iv-stat-known strong{color:#166534}
+    .iv-global-prog-wrap{flex:1;min-width:120px;height:4px;background:var(--border);border-radius:2px;overflow:hidden}
+    .iv-global-prog-bar{height:100%;background:linear-gradient(90deg,#22c55e,#4ADE80);border-radius:2px;transition:width 0.5s cubic-bezier(0.22,1,0.36,1)}
+    .iv-pct{font-size:10px;font-weight:700;color:#166534;letter-spacing:0.5px;white-space:nowrap}
     @media(max-width:600px){
-      .iv-verb-grid{grid-template-columns:1fr 1fr}
+      .iv-verb-grid{grid-template-columns:24px 1fr 1fr}
       .iv-cell.iv-pp,.iv-cell.iv-pt{display:none}
+      .iv-col-head.iv-col-pp,.iv-col-head.iv-col-pt{display:none}
     }
     </style>
 
     <script>
-    // ── Dados dos verbos irregulares ──
+    // ═══════════════════════════════════════════════════
+    //  IRREGULAR VERBS — com tiques persistidos
+    //  Storage: localStorage (imediato) + Google Sheets (sync)
+    // ═══════════════════════════════════════════════════
+
     var IV_DATA = {
       beginner: [
         ['be','was/were','been','ser/estar'],
@@ -1265,55 +1315,203 @@ body{font-family:var(--sans);background:var(--off-white);color:var(--text-body);
       ]
     };
 
+    // ── Estado dos tiques ──────────────────────────────
+    // Set de strings "nivel:índice", ex: "beginner:0"
+    var _ivKnown = new Set();
+    var _ivSaveTimer = null;
     var _ivOpen = false;
+    var _ivRendered = false;
 
+    // Chave localStorage por aluno
+    function ivKey() {
+      return 'iv_known_' + (currentStudent ? currentStudent.login : 'guest');
+    }
+
+    // ── Carregar tiques (localStorage primeiro, depois Sheets) ──
+    function ivLoad() {
+      // 1. localStorage (instantâneo)
+      try {
+        var raw = localStorage.getItem(ivKey());
+        if (raw) {
+          _ivKnown = new Set(JSON.parse(raw));
+        }
+      } catch(e) { _ivKnown = new Set(); }
+
+      // 2. Sheets (authoritative — sobrescreve localStorage)
+      if (!currentStudent) return;
+      callScript(
+        'action=get_verbos_conhecidos&login=' + encodeURIComponent(currentStudent.login),
+        function(d) {
+          if (d.success && d.verbos) {
+            try {
+              _ivKnown = new Set(Array.isArray(d.verbos) ? d.verbos : JSON.parse(d.verbos));
+              // Atualiza localStorage com dado do servidor
+              localStorage.setItem(ivKey(), JSON.stringify(Array.from(_ivKnown)));
+            } catch(e) {}
+          }
+          // Re-renderiza se o card já estiver aberto
+          if (_ivRendered) ivRefreshAll();
+        },
+        function() { /* falha silenciosa — localStorage já foi carregado */ }
+      );
+    }
+
+    // ── Salvar tiques ───────────────────────────────────
+    function ivSave() {
+      // localStorage imediato
+      try {
+        localStorage.setItem(ivKey(), JSON.stringify(Array.from(_ivKnown)));
+      } catch(e) {}
+
+      // Sheets com debounce 1.5s
+      clearTimeout(_ivSaveTimer);
+      _ivSaveTimer = setTimeout(function() {
+        if (!currentStudent) return;
+        var ind = document.getElementById('iv-saving');
+        if (ind) { ind.textContent = 'Salvando...'; ind.classList.add('show'); }
+        callScript(
+          'action=salvar_verbos_conhecidos&login=' + encodeURIComponent(currentStudent.login) +
+          '&verbos=' + encodeURIComponent(JSON.stringify(Array.from(_ivKnown))),
+          function(d) {
+            if (ind) {
+              ind.textContent = d.success ? 'Salvo ✓' : 'Erro ao salvar';
+              setTimeout(function() { ind.classList.remove('show'); }, 2000);
+            }
+          },
+          function() {
+            if (ind) {
+              ind.textContent = 'Salvo localmente';
+              setTimeout(function() { ind.classList.remove('show'); }, 2000);
+            }
+          }
+        );
+      }, 1500);
+    }
+
+    // ── Toggle de um verbo ──────────────────────────────
+    function ivToggle(level, idx) {
+      var key = level + ':' + idx;
+      var wasKnown = _ivKnown.has(key);
+      if (wasKnown) { _ivKnown.delete(key); } else { _ivKnown.add(key); }
+
+      // Atualiza UI da linha
+      var rowEl = document.getElementById('iv-row-' + level + '-' + idx);
+      var cbEl  = document.getElementById('iv-cb-'  + level + '-' + idx);
+      if (rowEl) rowEl.classList.toggle('iv-known', !wasKnown);
+      if (cbEl)  cbEl.classList.toggle('iv-checked', !wasKnown);
+
+      // Atualiza contadores e barras
+      ivUpdateStats();
+      ivSave();
+    }
+
+    // ── Render de um grid ───────────────────────────────
+    function renderIvGrid(gridId, verbs, level) {
+      var grid = document.getElementById(gridId);
+      if (!grid) return;
+      // Cabeçalhos
+      var heads = '<div class="iv-col-head"></div>' +
+        '<div class="iv-col-head">Base Form</div>' +
+        '<div class="iv-col-head">Past Simple</div>' +
+        '<div class="iv-col-head iv-col-pp">Past Participle</div>' +
+        '<div class="iv-col-head iv-col-pt">Tradução</div>';
+
+      var rows = verbs.map(function(v, i) {
+        var key     = level + ':' + i;
+        var known   = _ivKnown.has(key);
+        var rowCls  = 'iv-row' + (known ? ' iv-known' : '');
+        var cbCls   = 'iv-checkbox' + (known ? ' iv-checked' : '');
+        var checkSvg = '<svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>';
+        return '<div class="' + rowCls + '" id="iv-row-' + level + '-' + i + '" onclick="ivToggle('' + level + '',' + i + ')">' +
+          '<div class="iv-cell iv-check-cell"><div class="' + cbCls + '" id="iv-cb-' + level + '-' + i + '">' + checkSvg + '</div></div>' +
+          '<div class="iv-cell iv-base">' + v[0] + '</div>' +
+          '<div class="iv-cell">' + v[1] + '</div>' +
+          '<div class="iv-cell iv-pp">' + v[2] + '</div>' +
+          '<div class="iv-cell iv-pt"><span class="iv-tt">' + v[3] + '</span></div>' +
+        '</div>';
+      }).join('');
+
+      grid.innerHTML = heads + rows;
+    }
+
+    // ── Atualiza contadores e barras por nível ──────────
+    function ivUpdateStats() {
+      var levels = {
+        beginner:     { data: IV_DATA.beginner,     label: 'iv-beginner' },
+        intermediate: { data: IV_DATA.intermediate, label: 'iv-intermediate' },
+        advanced:     { data: IV_DATA.advanced,     label: 'iv-advanced' }
+      };
+      var totalAll = 0, knownAll = 0;
+
+      Object.keys(levels).forEach(function(level) {
+        var total = levels[level].data.length;
+        var known = 0;
+        for (var i = 0; i < total; i++) {
+          if (_ivKnown.has(level + ':' + i)) known++;
+        }
+        totalAll += total; knownAll += known;
+
+        // Mini barra de nível
+        var bar = document.getElementById('iv-prog-' + level);
+        if (bar) bar.style.width = (total ? Math.round((known/total)*100) : 0) + '%';
+
+        // Contador "X / Y" no cabeçalho
+        var cnt = document.getElementById('iv-known-' + level);
+        if (cnt) cnt.textContent = known + ' / ' + total + ' conhecidos';
+      });
+
+      // Barra e % global
+      var pct = totalAll ? Math.round((knownAll / totalAll) * 100) : 0;
+      var globalBar = document.getElementById('iv-global-bar');
+      var globalPct = document.getElementById('iv-global-pct');
+      var globalKnown = document.getElementById('iv-global-known');
+      if (globalBar)   globalBar.style.width = pct + '%';
+      if (globalPct)   globalPct.textContent = pct + '%';
+      if (globalKnown) globalKnown.textContent = knownAll;
+    }
+
+    function ivRefreshAll() {
+      renderIvGrid('iv-beginner-grid',     IV_DATA.beginner,     'beginner');
+      renderIvGrid('iv-intermediate-grid', IV_DATA.intermediate, 'intermediate');
+      renderIvGrid('iv-advanced-grid',     IV_DATA.advanced,     'advanced');
+      ivUpdateStats();
+    }
+
+    // ── Toggle principal (abrir/fechar card) ────────────
     function toggleIrregularVerbs() {
-      var col = document.getElementById('iv-collapse');
-      var chevSvg = document.getElementById('iv-chevron-svg');
+      var col      = document.getElementById('iv-collapse');
+      var chevSvg  = document.getElementById('iv-chevron-svg');
       var chevWrap = document.getElementById('iv-chevron');
       _ivOpen = !_ivOpen;
       if (_ivOpen) {
-        col.style.maxHeight = '8000px';
+        col.style.maxHeight = '10000px';
         chevSvg.style.transform = 'rotate(180deg)';
         chevWrap.style.background = 'var(--gold-faint)';
-        // Renderiza grids na primeira abertura
-        if (!document.getElementById('iv-beginner-grid').hasChildNodes()) {
-          renderIvGrid('iv-beginner-grid', IV_DATA.beginner);
-          renderIvGrid('iv-intermediate-grid', IV_DATA.intermediate);
-          renderIvGrid('iv-advanced-grid', IV_DATA.advanced);
+        if (!_ivRendered) {
+          _ivRendered = true;
+          ivRefreshAll();
         }
       } else {
         col.style.maxHeight = '0';
-        chevSvg.style.transform = 'rotate(0deg)';
+        chevSvg.style.transform = '';
         chevWrap.style.background = '';
       }
     }
 
-    function renderIvGrid(gridId, verbs) {
-      var grid = document.getElementById(gridId);
-      if (!grid) return;
-      grid.innerHTML = verbs.map(function(v) {
-        return '<div class="iv-row">'+
-          '<div class="iv-cell iv-base">'+v[0]+'</div>'+
-          '<div class="iv-cell">'+v[1]+'</div>'+
-          '<div class="iv-cell iv-pp">'+v[2]+'</div>'+
-          '<div class="iv-cell iv-pt"><span class="iv-tt">'+v[3]+'</span></div>'+
-        '</div>';
-      }).join('');
-    }
-
+    // ── Toggle de nível ─────────────────────────────────
     function toggleIvLevel(id) {
       var body = document.getElementById(id);
-      var chevId = id + '-chev';
-      var chev = document.getElementById(chevId);
+      var chev = document.getElementById(id + '-chev');
       var isOpen = body.classList.toggle('iv-open');
-      if (chev) chev.style.transform = isOpen ? 'rotate(180deg)' : 'rotate(0deg)';
+      if (chev) chev.style.transform = isOpen ? 'rotate(180deg)' : '';
     }
 
-    // Abre beginner por padrão ao renderizar
     document.addEventListener('DOMContentLoaded', function() {
+      // Abre beginner por padrão
       var begChev = document.getElementById('iv-beginner-chev');
       if (begChev) begChev.style.transform = 'rotate(180deg)';
+      // Carrega tiques assim que o aluno estiver disponível
+      // (ivLoad() é chamado em renderDashboard)
     });
     </script>
 
@@ -1784,21 +1982,28 @@ function renderDashboard(a, avisos) {
   carregarAnotacoes(a.anotacoes || []);
   window._trilhaData = a.trilha || [];
   renderTrilha(a.trilha || []);
+  ivLoad(); // carrega tiques de verbos irregulares
 
-  var driveFilesSection = document.getElementById('drive-files-section');
-  var driveFilesGrid    = document.getElementById('drive-files-grid');
-  if (driveFilesSection && driveFilesGrid && a.link_drive && a.link_drive.trim()) {
-    driveFilesSection.style.display='block';
-    driveFilesGrid.innerHTML='<p style="font-size:12px;color:var(--text-muted);grid-column:1/-1">Carregando arquivos...</p>';
-    callScript(
-      'action=get_drive_files&login='+encodeURIComponent(a.login),
-      function(d) {
-        var s=document.getElementById('drive-files-section');
-        if (d.success && d.files && d.files.length) { renderDriveFiles(d.files); }
-        else if (s) { s.style.display='none'; }
-      },
-      function() { var s=document.getElementById('drive-files-section'); if(s) s.style.display='none'; }
-    );
+  var driveFilesGrid = document.getElementById('drive-files-grid');
+  if (driveFilesGrid) {
+    if (a.link_drive && a.link_drive.trim()) {
+      driveFilesGrid.innerHTML = '<p style="font-size:13px;color:var(--text-muted);font-style:italic">Carregando arquivos...</p>';
+      callScript(
+        'action=get_drive_files&login='+encodeURIComponent(a.login),
+        function(d) {
+          if (d.success && d.files && d.files.length) {
+            renderDriveFiles(d.files);
+          } else {
+            driveFilesGrid.innerHTML = '<p style="font-size:13px;color:var(--text-muted);font-style:italic">Nenhum arquivo disponível no momento.</p>';
+          }
+        },
+        function() {
+          driveFilesGrid.innerHTML = '<p style="font-size:13px;color:var(--text-muted);font-style:italic">Não foi possível carregar os arquivos.</p>';
+        }
+      );
+    } else {
+      driveFilesGrid.innerHTML = '<p style="font-size:13px;color:var(--text-muted);font-style:italic">Pasta do Drive não configurada para este aluno.</p>';
+    }
   }
 
   showPage('dashboard');
