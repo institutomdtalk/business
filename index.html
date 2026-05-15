@@ -284,37 +284,7 @@ body{font-family:var(--sans);background:var(--off-white);color:var(--text-body);
 .btn-signout:hover{border-color:var(--gold);color:var(--gold)}
 
 /* Bell */
-.bell-wrap{position:relative}
-.btn-bell{
-  background:none;border:1px solid rgba(196,164,90,0.18);border-radius:var(--radius);
-  width:34px;height:34px;cursor:pointer;display:flex;align-items:center;justify-content:center;
-  transition:all 0.3s ease;
-}
-.btn-bell:hover{border-color:var(--gold)}
-.btn-bell svg{width:15px;height:15px;stroke:rgba(255,255,255,0.4);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-.bell-badge{
-  position:absolute;top:-4px;right:-4px;background:var(--gold);color:var(--navy-deep);
-  font-size:8px;font-weight:700;border-radius:50%;width:16px;height:16px;
-  display:flex;align-items:center;justify-content:center;
-}
-.bell-badge.hidden{display:none}
-.bell-dropdown{
-  position:fixed;background:var(--navy-deep);border:1px solid rgba(196,164,90,0.18);
-  border-radius:var(--radius);width:300px;z-index:200;
-  box-shadow:0 20px 60px rgba(0,0,0,0.4);display:none;overflow:hidden;
-}
-.bell-dropdown.open{display:block}
-.bell-dropdown-header{
-  display:flex;align-items:center;justify-content:space-between;
-  padding:14px 18px;border-bottom:1px solid rgba(196,164,90,0.1);
-}
-.bell-dropdown-title{font-family:var(--sans);font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--gold)}
-.bell-dropdown-clear{background:none;border:none;font-family:var(--sans);font-size:9px;font-weight:600;color:rgba(255,255,255,0.3);cursor:pointer;letter-spacing:1px;text-transform:uppercase;transition:color 0.2s}
-.bell-dropdown-clear:hover{color:var(--gold)}
-.bell-item{padding:14px 18px;border-bottom:1px solid rgba(255,255,255,0.04);font-size:12px;color:rgba(255,255,255,0.6);line-height:1.6}
-.bell-item.unread{background:rgba(196,164,90,0.04)}
-.bell-item-date{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:5px}
-.bell-empty{padding:18px;font-size:12px;color:rgba(255,255,255,0.3);text-align:center;font-style:italic}
+
 
 .header-gold-line{
   position:absolute;bottom:0;left:0;right:0;height:1px;
@@ -848,14 +818,7 @@ body{font-family:var(--sans);background:var(--off-white);color:var(--text-body);
         <p class="header-greeting" id="hdr-greeting">Good morning,</p>
         <p class="header-student-name" id="hdr-nome"></p>
         <p class="header-clock" id="hdr-clock"></p>
-        <div class="header-actions">
-          <div class="bell-wrap" id="bell-wrap">
-            <button class="btn-bell" id="btn-bell">
-              <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
-            </button>
-            <span class="bell-badge hidden" id="bell-badge">0</span>
-          </div>
-        </div>
+
       </div>
     </div>
 
@@ -940,14 +903,13 @@ body{font-family:var(--sans);background:var(--off-white);color:var(--text-body);
       </div>
     </div>
 
-    <!-- MURAL -->
-    <div class="card reveal" style="grid-column:1/-1">
+    <!-- ARQUIVOS DRIVE (seção dinâmica) -->
+    <div id="drive-files-section" class="card reveal" style="grid-column:1/-1;display:none">
       <div class="card-pad">
-        <span class="card-overline">Comunicados</span>
-        <h3 class="card-title" style="margin-bottom:16px">Mural de Avisos</h3>
-        <div id="mural-content">
-          <div style="color:var(--text-muted);font-size:13px"><span class="spinner-inline" style="border-top-color:var(--gold);border-color:rgba(196,164,90,0.2)"></span> Carregando...</div>
-        </div>
+        <span class="card-overline">Materiais Recentes</span>
+        <h3 class="card-title" style="margin-bottom:4px">Arquivos do Programa</h3>
+        <p class="card-desc" style="margin-bottom:4px">Documentos disponibilizados nas suas sessões.</p>
+        <div class="drive-grid" id="drive-files-grid"></div>
       </div>
     </div>
 
@@ -1005,16 +967,6 @@ body{font-family:var(--sans);background:var(--off-white);color:var(--text-body);
           <p class="card-desc">Visualize seu histórico de presenças e faltas, com frequência mensal e sessões esperadas.</p>
         </div>
         <span class="form-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></span>
-      </div>
-    </div>
-
-    <!-- ARQUIVOS DRIVE (seção dinâmica) -->
-    <div id="drive-files-section" class="card reveal" style="grid-column:1/-1;display:none">
-      <div class="card-pad">
-        <span class="card-overline">Materiais Recentes</span>
-        <h3 class="card-title" style="margin-bottom:4px">Arquivos do Programa</h3>
-        <p class="card-desc" style="margin-bottom:4px">Documentos disponibilizados nas suas sessões.</p>
-        <div class="drive-grid" id="drive-files-grid"></div>
       </div>
     </div>
 
@@ -1633,14 +1585,7 @@ body{font-family:var(--sans);background:var(--off-white);color:var(--text-body);
   </div>
 </div>
 
-<!-- BELL DROPDOWN -->
-<div class="bell-dropdown" id="bell-dropdown">
-  <div class="bell-dropdown-header">
-    <span class="bell-dropdown-title">Avisos</span>
-    <button class="bell-dropdown-clear" onclick="marcarTodosLidos()">Marcar todos como lidos</button>
-  </div>
-  <div id="bell-lista"></div>
-</div>
+
 
 <!-- PDF VIEWER MODAL -->
 <div class="pdf-modal-overlay" id="pdf-modal">
@@ -1832,7 +1777,7 @@ function renderDashboard(a, avisos) {
     }).join('');
   }
 
-  initBell(avisos || []);
+
   window._calFreq = a.frequencia_semanal ? parseInt(a.frequencia_semanal) : null;
   renderHistorico(a.historico);
   verificarRegistroHoje(a.historico);
@@ -1936,39 +1881,7 @@ function abrirModalCalendario(){
 function fecharModalCalendario(){ document.getElementById('modal-calendario').classList.remove('active'); }
 
 // ── MURAL ──
-function renderMural(avisos){
-  var el=document.getElementById('mural-content'); if(!el) return;
-  if(!avisos||!avisos.length){ el.innerHTML='<p class="empty-state">Nenhum aviso no momento.</p>'; return; }
-  el.innerHTML=avisos.slice(0,5).map(function(a){
-    return '<div class="aviso-item"><p class="aviso-data">'+(a.data||'')+'</p><p class="aviso-txt">'+(a.texto||a.aviso||'')+'</p></div>';
-  }).join('');
-}
 
-// ── BELL ──
-var _bellLidos=[];
-function initBell(avisos){
-  var stored=localStorage.getItem('exec_bell_lidos');
-  try{ _bellLidos=stored?JSON.parse(stored):[]; }catch(e){ _bellLidos=[]; }
-  var lista=document.getElementById('bell-lista');
-  var badge=document.getElementById('bell-badge');
-  renderMural(avisos);
-  if(!lista) return;
-  if(!avisos||!avisos.length){ lista.innerHTML='<div class="bell-empty">Nenhum aviso no momento.</div>'; if(badge) badge.classList.add('hidden'); return; }
-  var unread=avisos.filter(function(a,i){ return !_bellLidos.includes(i+''); }).length;
-  if(badge){ badge.textContent=unread; unread>0?badge.classList.remove('hidden'):badge.classList.add('hidden'); }
-  lista.innerHTML=avisos.slice(0,8).map(function(a,i){
-    var lido=_bellLidos.includes(i+'');
-    return '<div class="bell-item'+(lido?'':' unread')+'"><div class="bell-item-date">'+(a.data||'')+'</div>'+(a.texto||a.aviso||'')+'</div>';
-  }).join('');
-}
-function marcarTodosLidos(){
-  var lista=document.getElementById('bell-lista'); if(!lista) return;
-  var items=lista.querySelectorAll('.bell-item');
-  _bellLidos=Array.from({length:items.length},function(_,i){ return i+''; });
-  localStorage.setItem('exec_bell_lidos',JSON.stringify(_bellLidos));
-  items.forEach(function(i){ i.classList.remove('unread'); });
-  var badge=document.getElementById('bell-badge'); if(badge) badge.classList.add('hidden');
-}
 
 // ── ANOTAÇÕES ──
 var _anotData=[];
@@ -2306,7 +2219,6 @@ function doLogout(){
   localStorage.removeItem('mdtalk_login'); localStorage.removeItem('mdtalk_senha');
   document.getElementById('f-login').value=''; document.getElementById('f-senha').value='';
   document.getElementById('login-err').style.display='none';
-  document.getElementById('mural-content').innerHTML='<div style="color:var(--text-muted);font-size:13px"><span class="spinner-inline" style="border-top-color:var(--gold);border-color:rgba(196,164,90,0.2)"></span>Carregando...</div>';
   var ms=document.getElementById('materiais-section'); if(ms) ms.style.display='none';
   _anotData=[];
   showPage('login');
@@ -2337,20 +2249,7 @@ document.addEventListener('DOMContentLoaded', function() {
   var btnSignouts=document.querySelectorAll('#btn-signout');
   btnSignouts.forEach(function(b){ b.addEventListener('click',doLogout); });
 
-  var btnBell=document.getElementById('btn-bell');
-  var bellDd=document.getElementById('bell-dropdown');
-  if(btnBell&&bellDd){
-    btnBell.addEventListener('click',function(e){
-      e.stopPropagation(); bellDd.classList.toggle('open');
-      var rect=btnBell.getBoundingClientRect();
-      bellDd.style.top=(rect.bottom+8)+'px'; bellDd.style.right=(window.innerWidth-rect.right)+'px'; bellDd.style.left='auto';
-    });
-    document.addEventListener('click',function(e){
-      var t=e.target;
-      if(t.id==='btn-signout'||t.closest('#btn-signout')) return;
-      if(!bellDd.contains(t)&&t!==btnBell&&!btnBell.contains(t)) bellDd.classList.remove('open');
-    },true);
-  }
+
 
   var btnPresente=document.getElementById('btn-presente');
   if(btnPresente) btnPresente.addEventListener('click',function(){ registrarPresenca('presente'); });
