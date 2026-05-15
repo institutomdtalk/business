@@ -573,16 +573,16 @@ body{font-family:var(--sans);background:var(--off-white);color:var(--text-body);
 .card--caderno-locked{filter:grayscale(0.6);opacity:0.7}
 
 /* DRIVE FILES */
-.drive-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:14px}
-.drive-file{border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;cursor:pointer;transition:all 0.3s ease;background:var(--white)}
+.drive-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:14px}
+.drive-file{border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;cursor:pointer;transition:all 0.3s ease;background:var(--white);display:flex;flex-direction:column}
 .drive-file:hover{box-shadow:var(--shadow-md);transform:translateY(-2px);border-color:var(--border-gold)}
-.drive-file-thumb{width:100%;aspect-ratio:3/4;object-fit:cover;background:var(--off-white);display:block}
-.drive-file-thumb-placeholder{width:100%;aspect-ratio:3/4;background:var(--off-white);display:flex;align-items:center;justify-content:center}
-.drive-file-thumb-placeholder svg{width:30px;height:30px;stroke:var(--gold);fill:none;stroke-width:1.5;opacity:0.45}
-.drive-file-info{padding:10px 12px}
-.drive-file-name{font-size:11px;font-weight:500;color:var(--navy);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:6px}
-.drive-file-actions{display:flex;gap:6px}
-.drive-file-btn{flex:1;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;font-family:var(--sans);padding:6px 8px;border:1px solid var(--border);border-radius:var(--radius);cursor:pointer;text-align:center;text-decoration:none;transition:all 0.25s;background:none;color:var(--text-muted)}
+.drive-file-thumb{width:100%;height:72px;object-fit:cover;background:var(--off-white);display:block;flex-shrink:0}
+.drive-file-thumb-placeholder{width:100%;height:72px;background:var(--off-white);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.drive-file-thumb-placeholder svg{width:22px;height:22px;stroke:var(--gold);fill:none;stroke-width:1.5;opacity:0.45}
+.drive-file-info{padding:8px 10px;flex:1;display:flex;flex-direction:column;gap:6px}
+.drive-file-name{font-size:10px;font-weight:600;color:var(--navy);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:1.3}
+.drive-file-actions{display:flex;gap:5px}
+.drive-file-btn{flex:1;font-size:8px;font-weight:700;letter-spacing:1px;text-transform:uppercase;font-family:var(--sans);padding:5px 6px;border:1px solid var(--border);border-radius:var(--radius);cursor:pointer;text-align:center;text-decoration:none;transition:all 0.25s;background:none;color:var(--text-muted)}
 .drive-file-btn:hover{border-color:var(--gold);color:var(--gold)}
 .drive-file-btn.primary{background:var(--gold);color:var(--navy-deep);border-color:var(--gold)}
 .drive-file-btn.primary:hover{background:var(--gold-light)}
@@ -736,7 +736,7 @@ body{font-family:var(--sans);background:var(--off-white);color:var(--text-body);
 }
 @media(max-width:480px){
   .trilha-grid{grid-template-columns:1fr}
-  .drive-grid{grid-template-columns:1fr 1fr}
+  .drive-grid{grid-template-columns:repeat(2,1fr)}
 }
 </style>
 </head>
