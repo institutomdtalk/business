@@ -533,91 +533,54 @@ body{font-family:var(--sans);background:var(--off-white);color:var(--text-body);
 .anot-empty{font-size:13px;color:var(--text-muted);font-style:italic}
 
 /* TRILHA */
+.trilha-progress-bar-wrap{height:3px;background:var(--border);border-radius:2px;margin-bottom:18px;overflow:hidden}
+.trilha-progress-bar{height:100%;background:linear-gradient(90deg,var(--gold),var(--gold-light));border-radius:2px;transition:width 0.6s cubic-bezier(0.22,1,0.36,1)}
 .trilha-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:4px}
-.trilha-card{
-  border:1px solid var(--border);border-radius:var(--radius);
-  overflow:hidden;background:var(--white);
-  transition:all 0.4s cubic-bezier(0.22,1,0.36,1);
-  position:relative;cursor:pointer;display:flex;flex-direction:column;
-}
+.trilha-card{border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;background:var(--white);transition:all 0.4s cubic-bezier(0.22,1,0.36,1);position:relative;display:flex;flex-direction:column}
 .trilha-card:hover{box-shadow:var(--shadow-md);transform:translateY(-3px);border-color:var(--border-gold)}
-.trilha-card::before{
-  content:'';position:absolute;top:0;left:0;right:0;height:2px;
-  background:linear-gradient(90deg,transparent,var(--gold),transparent);
-  transform:scaleX(0);transition:transform 0.5s cubic-bezier(0.22,1,0.36,1);
-}
+.trilha-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);transform:scaleX(0);transition:transform 0.5s cubic-bezier(0.22,1,0.36,1)}
 .trilha-card:hover::before{transform:scaleX(1)}
-.trilha-card.concluido{border-color:rgba(45,106,79,0.25)}
+.trilha-card.concluido{border-color:rgba(45,106,79,0.2)}
 .trilha-card.concluido::before{background:linear-gradient(90deg,transparent,#4ADE80,transparent);transform:scaleX(1)}
 .trilha-thumb{width:100%;aspect-ratio:21/9;object-fit:cover;background:var(--off-white);display:block}
-.trilha-thumb-placeholder{
-  width:100%;aspect-ratio:21/9;
-  background:linear-gradient(135deg,var(--navy-deep),var(--navy));
-  display:flex;align-items:center;justify-content:center;
-}
+.trilha-thumb-placeholder{width:100%;aspect-ratio:21/9;background:linear-gradient(135deg,var(--navy-deep),var(--navy));display:flex;align-items:center;justify-content:center}
+.trilha-card.concluido .trilha-thumb-placeholder{background:linear-gradient(135deg,#1a3a28,#2D6A4F)}
 .trilha-thumb-placeholder svg{width:26px;height:26px;stroke:var(--gold);fill:none;stroke-width:1.5;opacity:0.45}
+.trilha-card.concluido .trilha-thumb-placeholder svg{stroke:#4ADE80;opacity:0.6}
 .trilha-body{padding:14px 16px;flex:1;display:flex;flex-direction:column}
-.trilha-tipo{
-  font-size:8px;font-weight:700;letter-spacing:2px;text-transform:uppercase;
-  padding:3px 10px;border-radius:20px;display:inline-block;margin-bottom:8px;width:fit-content;
-}
+.trilha-tipo{font-size:8px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:3px 10px;border-radius:20px;display:inline-block;margin-bottom:8px;width:fit-content}
 .trilha-tipo.gramatica{background:#EDE9FE;color:#6D28D9}
 .trilha-tipo.vocabulario{background:var(--gold-faint);color:#92400E}
 .trilha-tipo.negocios{background:rgba(11,29,58,0.06);color:var(--navy)}
 .trilha-tipo.comunicacao{background:rgba(196,164,90,0.1);color:#6B4D10}
 .trilha-titulo{font-family:var(--serif);font-size:1.2rem;font-weight:500;color:var(--navy);line-height:1.25;margin-bottom:auto}
-.trilha-footer-wrap{display:flex;flex-direction:column;gap:0;margin-top:12px;padding-top:10px;border-top:1px solid var(--border)}
-.trilha-footer-main{display:flex;align-items:center;justify-content:space-between}
+.trilha-card.concluido .trilha-titulo{color:var(--text-muted)}
+.trilha-recursos{display:flex;flex-wrap:wrap;gap:6px;padding:10px 0 6px;margin-top:8px;border-top:1px solid var(--border)}
+.trilha-btn-recurso{display:inline-flex;align-items:center;gap:5px;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;font-family:var(--sans);color:var(--gold);background:none;border:1px solid var(--border-gold);padding:5px 10px;border-radius:var(--radius);text-decoration:none;cursor:pointer;transition:all 0.25s;flex-shrink:0}
+.trilha-btn-recurso svg{width:9px;height:9px;stroke:currentColor;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+.trilha-btn-recurso:hover{background:var(--gold);color:var(--navy-deep)}
+.trilha-btn-recurso:hover svg{stroke:var(--navy-deep)}
+.trilha-btn-recurso.link-ext{border-color:rgba(11,29,58,0.12);color:var(--text-body)}
+.trilha-btn-recurso.link-ext:hover{background:var(--navy);color:var(--white);border-color:var(--navy)}
+.trilha-btn-recurso.link-ext:hover svg{stroke:var(--white)}
+.trilha-footer-wrap{display:flex;align-items:center;justify-content:space-between;margin-top:10px;padding-top:10px;border-top:1px solid var(--border)}
 .trilha-ordem{font-size:10px;color:var(--text-muted);letter-spacing:1px}
-.trilha-actions{display:flex;align-items:center;gap:8px}
-.trilha-btn-pdf{
-  font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
-  font-family:var(--sans);color:var(--gold);background:none;
-  border:1px solid var(--border-gold);padding:5px 12px;border-radius:var(--radius);
-  text-decoration:none;cursor:pointer;transition:all 0.25s;flex-shrink:0;
-}
-.trilha-btn-pdf:hover{background:var(--gold);color:var(--navy-deep)}
-.trilha-pdf-more{
-  font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
-  font-family:var(--sans);color:var(--text-muted);background:none;
-  border:1px dashed var(--border);padding:5px 10px;border-radius:var(--radius);
-  cursor:pointer;transition:all 0.25s;flex-shrink:0;
-}
-.trilha-pdf-more:hover{border-color:var(--gold);color:var(--gold)}
-.trilha-pdf-extra{display:none;flex-wrap:wrap;gap:6px;padding:8px 0 4px;grid-column:1/-1;width:100%}
-.trilha-pdf-extra.open{display:flex}
-.trilha-check{
-  display:flex;align-items:center;gap:5px;padding:5px 12px;border-radius:20px;
-  border:1.5px solid var(--border);cursor:pointer;transition:all 0.3s ease;flex-shrink:0;background:none;
-  font-family:var(--sans);font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text-muted);
-}
-.trilha-check:hover{border-color:var(--gold);color:var(--gold)}
-.trilha-check.done{background:#22c55e;border-color:#22c55e;color:#fff}
-.trilha-check svg{width:10px;height:10px;stroke:currentColor;fill:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;opacity:0.5;transition:opacity 0.2s;flex-shrink:0}
-.trilha-check.done svg{opacity:1}
-.trilha-concluido-badge{
-  position:absolute;top:8px;right:8px;background:#22c55e;color:#fff;
-  font-size:8px;font-weight:700;letter-spacing:1px;text-transform:uppercase;
-  padding:3px 10px;border-radius:20px;display:none;
-}
+.trilha-check{display:inline-flex;align-items:center;gap:5px;padding:6px 14px;border-radius:20px;border:1.5px solid var(--border);cursor:pointer;transition:all 0.35s cubic-bezier(0.22,1,0.36,1);flex-shrink:0;background:none;font-family:var(--sans);font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text-muted)}
+.trilha-check:hover{border-color:var(--gold);color:var(--navy);background:var(--gold-faint)}
+.trilha-check.done{background:#22c55e;border-color:#22c55e;color:#fff;box-shadow:0 3px 12px rgba(34,197,94,0.25)}
+.trilha-check.done:hover{background:#16a34a;border-color:#16a34a}
+.trilha-check.saving{opacity:0.6;cursor:not-allowed;pointer-events:none}
+.trilha-check-icon{width:10px;height:10px;stroke:currentColor;fill:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+.trilha-concluido-badge{position:absolute;top:8px;right:8px;background:rgba(34,197,94,0.9);backdrop-filter:blur(4px);color:#fff;font-size:8px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:3px 10px;border-radius:20px;display:none}
 .trilha-card.concluido .trilha-concluido-badge{display:block}
 .trilha-empty{font-size:13px;color:var(--text-muted);font-style:italic;padding:8px 0}
-.trilha-collapse{max-height:0;overflow:hidden;transition:max-height 0.6s cubic-bezier(0.22,1,0.36,1)}
-.trilha-collapse.open{max-height:4000px}
-.btn-trilha-toggle{
-  display:flex;align-items:center;gap:8px;margin:16px auto 0;
-  background:none;border:1px solid var(--border-gold);
-  color:var(--gold);font-family:var(--sans);font-size:10px;font-weight:700;
-  letter-spacing:2px;text-transform:uppercase;padding:10px 24px;border-radius:var(--radius);cursor:pointer;
-  transition:all 0.3s ease;
-}
+.trilha-collapse{max-height:0;overflow:hidden;transition:max-height 0.7s cubic-bezier(0.22,1,0.36,1)}
+.trilha-collapse.open{max-height:8000px}
+.btn-trilha-toggle{display:flex;align-items:center;gap:8px;margin:16px auto 0;background:none;border:1px solid var(--border-gold);color:var(--gold);font-family:var(--sans);font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:10px 24px;border-radius:var(--radius);cursor:pointer;transition:all 0.3s ease}
 .btn-trilha-toggle:hover{background:var(--gold-faint);border-color:var(--gold)}
 .btn-trilha-toggle svg{width:11px;height:11px;transition:transform 0.4s ease}
 .btn-trilha-toggle.open svg{transform:rotate(180deg)}
-.trilha-section-label{
-  font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;
-  color:var(--text-muted);margin:20px 0 12px;display:flex;align-items:center;gap:12px;
-}
+.trilha-section-label{font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--text-muted);margin:20px 0 12px;display:flex;align-items:center;gap:12px}
 .trilha-section-label::after{content:'';flex:1;height:1px;background:var(--border)}
 
 /* PREMIUM ORBIT */
@@ -1468,7 +1431,7 @@ body{font-family:var(--sans);background:var(--off-white);color:var(--text-body);
 <div class="toast" id="toast"></div>
 
 <script>
-const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzYaTJWlGlx26oNu_R1eKvQsSvxWiahrwUrrxp-t6RoY8wbxfAsVQ9mGzLExCq0jE6kbg/exec';
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzPKG_mTf6hK78a5WvQdMu9Ii1DpiA2vgfb5F5oUVhycd-eTeZCrCyCPfhUj4Z9yXAJ/exec';
 let currentStudent = null;
 
 // ── JSONP ──
@@ -1810,78 +1773,172 @@ function salvarAnotacoes(){
 }
 
 // ── TRILHA ──
+// SVG icons inline
+var _iconPdf = '<svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="15" y2="17"/></svg>';
+var _iconLink = '<svg viewBox="0 0 24 24"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg>';
+var _iconCheck = '<svg class="trilha-check-icon" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>';
+
 function renderTrilha(trilha){
   var el=document.getElementById('trilha-content');
   var resumoEl=document.getElementById('trilha-resumo');
   if(!el) return;
   if(!trilha||!trilha.length){
-    el.innerHTML='<p class="trilha-empty">Sua trilha ainda não foi configurada.</p>';
-    if(resumoEl) resumoEl.textContent='Aguardando configuração do seu programa personalizado.';
+    el.innerHTML='<p class="trilha-empty">Sua trilha ainda nao foi configurada.</p>';
+    if(resumoEl) resumoEl.textContent='Aguardando configuracao do seu programa personalizado.';
     return;
   }
+  var total=trilha.length;
   var concluidos=trilha.filter(function(m){ return m.concluido; }).length;
-  if(resumoEl) resumoEl.textContent=concluidos+' de '+trilha.length+' módulos concluídos.';
+  var pct=total>0?Math.round((concluidos/total)*100):0;
+
+  // Resumo
+  if(resumoEl) resumoEl.textContent=concluidos+' de '+total+' licoes concluidas — '+pct+'% do programa.';
+
+  // Progress bar
+  var progressHtml=
+    '<div class="trilha-progress-bar-wrap">'+
+      '<div class="trilha-progress-bar" style="width:'+pct+'%"></div>'+
+    '</div>';
+
   var visiveis=trilha.slice(0,6);
   var ocultos=trilha.slice(6);
-  el.innerHTML='<div class="trilha-grid">'+visiveis.map(function(m,i){ return renderTrilhaCard(m,i); }).join('')+'</div>'+
+
+  el.innerHTML=
+    progressHtml+
+    '<div class="trilha-grid">'+visiveis.map(function(m,i){ return renderTrilhaCard(m,i); }).join('')+'</div>'+
     (ocultos.length?
-      '<div class="trilha-collapse" id="trilha-extra"><div class="trilha-grid" style="margin-top:16px">'+ocultos.map(function(m,i){ return renderTrilhaCard(m,i+6); }).join('')+'</div></div>'+
+      '<div class="trilha-collapse" id="trilha-extra">'+
+        '<div class="trilha-grid" style="margin-top:16px">'+
+          ocultos.map(function(m,i){ return renderTrilhaCard(m,i+6); }).join('')+
+        '</div>'+
+      '</div>'+
       '<button class="btn-trilha-toggle" id="btn-trilha-toggle" onclick="toggleTrilha()">'+
-        'Ver todos os módulos <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>'+
-      '</button>':''
-    );
+        'Ver todas as licoes '+
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>'+
+      '</button>'
+    :'');
 }
+
 function renderTrilhaCard(m,i){
-  var tipoClass=m.tipo?m.tipo.toLowerCase().replace(/\s+/g,'-'):'negocios';
-  var tipoLabel=m.tipo||'Módulo';
+  var tipoClass=(m.tipo||'negocios').toLowerCase().replace(/\s+/g,'-').replace(/[^a-z-]/g,'');
+  var tipoLabel=m.tipo||'Modulo';
+
+  // ── Recursos: PDFs ──
   var pdfs=m.pdfs||[];
-  var mainPdf=pdfs[0];
-  var extraPdfs=pdfs.slice(1);
-  return '<div class="trilha-card'+(m.concluido?' concluido':'')+'" data-idx="'+i+'">'+
-    '<span class="trilha-concluido-badge">Concluído</span>'+
-    (m.thumb_url?'<img class="trilha-thumb" src="'+m.thumb_url+'" alt="" loading="lazy">':'<div class="trilha-thumb-placeholder"><svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg></div>')+
+  var pdfsHtml=pdfs.map(function(p){
+    var nome=p.nome||'PDF';
+    var url=p.url||'';
+    if(!url) return '';
+    return '<button class="trilha-btn-recurso" onclick=\'abrirPdf('+JSON.stringify(url)+','+JSON.stringify(nome)+')\'>'+
+      _iconPdf+nome+
+    '</button>';
+  }).join('');
+
+  // ── Recursos: Links externos ──
+  var links=m.links||[];
+  var linksHtml=links.map(function(lk){
+    var nome=lk.nome||lk.label||'Link';
+    var url=lk.url||lk.href||'';
+    if(!url) return '';
+    return '<a class="trilha-btn-recurso link-ext" href="'+url+'" target="_blank" rel="noopener">'+
+      _iconLink+nome+
+    '</a>';
+  }).join('');
+
+  var recursosHtml='';
+  if(pdfsHtml||linksHtml){
+    recursosHtml='<div class="trilha-recursos">'+pdfsHtml+linksHtml+'</div>';
+  }
+
+  // ── Thumbnail ──
+  var thumbHtml=m.thumb_url?
+    '<img class="trilha-thumb" src="'+m.thumb_url+'" alt="" loading="lazy">':
+    '<div class="trilha-thumb-placeholder">'+
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">'+
+        '<path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/>'+
+      '</svg>'+
+    '</div>';
+
+  // ── Botao Concluir ──
+  var done=!!m.concluido;
+  var checkBtn=
+    '<button class="trilha-check'+(done?' done':'')+'" id="trilha-check-'+i+'" onclick="toggleConcluir('+i+')">'+
+      _iconCheck+
+      '<span id="trilha-check-lbl-'+i+'">'+(done?'Concluido':'Concluir')+'</span>'+
+    '</button>';
+
+  return '<div class="trilha-card'+(done?' concluido':'')+'" id="trilha-card-'+i+'">'+
+    '<span class="trilha-concluido-badge">Concluido</span>'+
+    thumbHtml+
     '<div class="trilha-body">'+
       '<span class="trilha-tipo '+tipoClass+'">'+tipoLabel+'</span>'+
-      '<p class="trilha-titulo">'+escHtml(m.titulo||'Módulo '+(i+1))+'</p>'+
+      '<p class="trilha-titulo">'+escHtml(m.titulo||'Licao '+(i+1))+'</p>'+
+      recursosHtml+
       '<div class="trilha-footer-wrap">'+
-        '<div class="trilha-footer-main">'+
-          '<span class="trilha-ordem">Módulo '+(i+1)+'</span>'+
-          '<div class="trilha-actions">'+
-            (mainPdf?'<button class="trilha-btn-pdf" onclick=\'abrirPdf('+JSON.stringify(mainPdf.url)+','+JSON.stringify(mainPdf.nome||'Documento')+')\'>'+(mainPdf.nome||'PDF')+'</button>':'')+
-            (extraPdfs.length?'<button class="trilha-pdf-more" onclick="togglePdfExtra(this)">+'+extraPdfs.length+'</button>':'')+
-            '<button class="trilha-check'+(m.concluido?' done':'')+'" onclick="toggleConcluir('+i+')">'+
-              '<svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> '+(m.concluido?'Concluído':'Concluir')+
-            '</button>'+
-          '</div>'+
-        '</div>'+
-        (extraPdfs.length?'<div class="trilha-pdf-extra">'+extraPdfs.map(function(p){ return '<button class="trilha-btn-pdf" onclick=\'abrirPdf('+JSON.stringify(p.url)+','+JSON.stringify(p.nome||'Documento')+')\'>'+(p.nome||'PDF')+'</button>'; }).join('')+'</div>':'')+
+        '<span class="trilha-ordem">Licao '+(i+1)+'</span>'+
+        checkBtn+
       '</div>'+
     '</div>'+
   '</div>';
 }
+
 function toggleTrilha(){
   var col=document.getElementById('trilha-extra');
   var btn=document.getElementById('btn-trilha-toggle');
   if(!col) return;
-  col.classList.toggle('open'); btn.classList.toggle('open');
-  btn.innerHTML=col.classList.contains('open')?
-    'Ver menos <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>':
-    'Ver todos os módulos <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>';
+  var isOpen=col.classList.toggle('open');
+  if(btn){
+    btn.classList.toggle('open',isOpen);
+    btn.innerHTML=
+      (isOpen?'Ver menos':'Ver todas as licoes')+
+      ' <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>';
+  }
 }
-function togglePdfExtra(btn){
-  var extra=btn.closest('.trilha-actions').closest('.trilha-footer-main').nextElementSibling;
-  if(extra&&extra.classList.contains('trilha-pdf-extra')) extra.classList.toggle('open');
-}
+
 function toggleConcluir(idx){
   var trilha=window._trilhaData||[];
   if(!trilha[idx]) return;
-  trilha[idx].concluido=!trilha[idx].concluido;
+
+  var novoEstado=!trilha[idx].concluido;
+  trilha[idx].concluido=novoEstado;
   window._trilhaData=trilha;
-  renderTrilha(trilha);
-  if(!currentStudent) return;
+
+  // Atualiza UI imediatamente (otimismo)
+  var card=document.getElementById('trilha-card-'+idx);
+  var btn=document.getElementById('trilha-check-'+idx);
+  var lbl=document.getElementById('trilha-check-lbl-'+idx);
+  if(card){ card.classList.toggle('concluido',novoEstado); }
+  if(btn){
+    btn.classList.toggle('done',novoEstado);
+    btn.classList.add('saving');
+  }
+  if(lbl) lbl.textContent=novoEstado?'Concluido':'Concluir';
+
+  // Atualiza barra de progresso e resumo
+  var total=trilha.length;
+  var concluidos=trilha.filter(function(m){ return m.concluido; }).length;
+  var pct=total>0?Math.round((concluidos/total)*100):0;
+  var bar=document.querySelector('.trilha-progress-bar');
+  if(bar) bar.style.width=pct+'%';
+  var resumoEl=document.getElementById('trilha-resumo');
+  if(resumoEl) resumoEl.textContent=concluidos+' de '+total+' licoes concluidas — '+pct+'% do programa.';
+
+  // Toast feedback
+  showToast(novoEstado?'Licao marcada como concluida!':'Licao desmarcada.', novoEstado?'success':'');
+
+  // Persiste no backend
+  if(!currentStudent){ if(btn) btn.classList.remove('saving'); return; }
   callScript(
-    'action=concluir_modulo&login='+encodeURIComponent(currentStudent.login)+'&modulo_idx='+idx+'&concluido='+(trilha[idx].concluido?1:0),
-    function(){}, function(){}
+    'action=concluir_modulo&login='+encodeURIComponent(currentStudent.login)+
+    '&modulo_idx='+idx+'&concluido='+(novoEstado?1:0),
+    function(d){
+      if(btn) btn.classList.remove('saving');
+      if(!d.success) showToast('Erro ao salvar. Tente novamente.','error');
+    },
+    function(){
+      if(btn) btn.classList.remove('saving');
+      showToast('Erro de conexao ao salvar.','error');
+    }
   );
 }
 
