@@ -1169,351 +1169,6 @@ body{font-family:var(--sans);background:var(--off-white);color:var(--text-body);
     }
     </style>
 
-    <script>
-    // ═══════════════════════════════════════════════════
-    //  IRREGULAR VERBS — com tiques persistidos
-    //  Storage: localStorage (imediato) + Google Sheets (sync)
-    // ═══════════════════════════════════════════════════
-
-    var IV_DATA = {
-      beginner: [
-        ['be','was/were','been','ser/estar'],
-        ['have','had','had','ter'],
-        ['do','did','done','fazer'],
-        ['go','went','gone','ir'],
-        ['get','got','got/gotten','obter/ficar'],
-        ['come','came','come','vir'],
-        ['see','saw','seen','ver'],
-        ['know','knew','known','saber/conhecer'],
-        ['think','thought','thought','pensar'],
-        ['say','said','said','dizer'],
-        ['make','made','made','fazer/criar'],
-        ['take','took','taken','pegar/levar'],
-        ['give','gave','given','dar'],
-        ['find','found','found','encontrar'],
-        ['tell','told','told','contar/dizer'],
-        ['feel','felt','felt','sentir'],
-        ['put','put','put','colocar'],
-        ['bring','brought','brought','trazer'],
-        ['buy','bought','bought','comprar'],
-        ['keep','kept','kept','manter/guardar'],
-        ['leave','left','left','deixar/sair'],
-        ['let','let','let','deixar/permitir'],
-        ['lose','lost','lost','perder'],
-        ['meet','met','met','encontrar/conhecer'],
-        ['pay','paid','paid','pagar'],
-        ['read','read','read','ler'],
-        ['run','ran','run','correr'],
-        ['send','sent','sent','enviar'],
-        ['sit','sat','sat','sentar'],
-        ['speak','spoke','spoken','falar'],
-        ['stand','stood','stood','ficar de pé'],
-        ['teach','taught','taught','ensinar'],
-        ['write','wrote','written','escrever'],
-        ['eat','ate','eaten','comer'],
-        ['drink','drank','drunk','beber'],
-        ['sleep','slept','slept','dormir'],
-        ['hear','heard','heard','ouvir'],
-        ['hold','held','held','segurar/manter'],
-        ['sell','sold','sold','vender'],
-        ['win','won','won','vencer/ganhar'],
-      ],
-      intermediate: [
-        ['arise','arose','arisen','surgir/levantar'],
-        ['bear','bore','born/borne','suportar/carregar'],
-        ['beat','beat','beaten','bater/vencer'],
-        ['become','became','become','tornar-se'],
-        ['begin','began','begun','começar'],
-        ['bend','bent','bent','curvar/dobrar'],
-        ['bind','bound','bound','ligar/amarrar'],
-        ['bite','bit','bitten','morder'],
-        ['bleed','bled','bled','sangrar'],
-        ['blow','blew','blown','soprar'],
-        ['break','broke','broken','quebrar'],
-        ['breed','bred','bred','criar/reproduzir'],
-        ['build','built','built','construir'],
-        ['burn','burned/burnt','burned/burnt','queimar'],
-        ['burst','burst','burst','explodir'],
-        ['catch','caught','caught','pegar/capturar'],
-        ['choose','chose','chosen','escolher'],
-        ['cut','cut','cut','cortar'],
-        ['deal','dealt','dealt','lidar/negociar'],
-        ['dig','dug','dug','cavar'],
-        ['draw','drew','drawn','desenhar/puxar'],
-        ['dream','dreamed/dreamt','dreamed/dreamt','sonhar'],
-        ['drive','drove','driven','dirigir'],
-        ['fall','fell','fallen','cair'],
-        ['feed','fed','fed','alimentar'],
-        ['fight','fought','fought','lutar'],
-        ['fly','flew','flown','voar'],
-        ['forbid','forbade','forbidden','proibir'],
-        ['forget','forgot','forgotten','esquecer'],
-        ['forgive','forgave','forgiven','perdoar'],
-        ['freeze','froze','frozen','congelar'],
-        ['grow','grew','grown','crescer'],
-        ['hang','hung','hung','pendurar'],
-        ['hide','hid','hidden','esconder'],
-        ['hit','hit','hit','acertar/bater'],
-        ['hurt','hurt','hurt','machucar'],
-        ['lay','laid','laid','colocar/deitar'],
-        ['lead','led','led','liderar/conduzir'],
-        ['learn','learned/learnt','learned/learnt','aprender'],
-        ['lend','lent','lent','emprestar'],
-        ['lie','lay','lain','deitar-se'],
-        ['light','lit','lit','acender'],
-        ['mean','meant','meant','significar'],
-        ['ride','rode','ridden','andar/cavalgar'],
-        ['ring','rang','rung','tocar/ligar'],
-        ['rise','rose','risen','subir/levantar'],
-        ['set','set','set','definir/ajustar'],
-        ['shake','shook','shaken','sacudir'],
-        ['show','showed','shown','mostrar'],
-        ['shut','shut','shut','fechar'],
-        ['sing','sang','sung','cantar'],
-      ],
-      advanced: [
-        ['sink','sank','sunk','afundar'],
-        ['smell','smelled/smelt','smelled/smelt','cheirar'],
-        ['spell','spelled/spelt','spelled/spelt','soletrar'],
-        ['spend','spent','spent','gastar/passar tempo'],
-        ['spin','spun','spun','girar/fiar'],
-        ['spread','spread','spread','espalhar'],
-        ['spring','sprang','sprung','pular/brotar'],
-        ['steal','stole','stolen','roubar'],
-        ['stick','stuck','stuck','grudar/fixar'],
-        ['sting','stung','stung','picar/ferroar'],
-        ['stink','stank','stunk','feder'],
-        ['stride','strode','stridden','caminhar a passos largos'],
-        ['strike','struck','struck','golpear/bater'],
-        ['strive','strove','striven','esforçar-se'],
-        ['swear','swore','sworn','jurar/xingar'],
-        ['sweep','swept','swept','varrer'],
-        ['swim','swam','swum','nadar'],
-        ['swing','swung','swung','balançar'],
-        ['tear','tore','torn','rasgar'],
-        ['throw','threw','thrown','jogar/lançar'],
-        ['thrust','thrust','thrust','empurrar com força'],
-        ['tread','trod','trodden','pisar'],
-        ['undergo','underwent','undergone','submeter-se a'],
-        ['understand','understood','understood','entender'],
-        ['undo','undid','undone','desfazer'],
-        ['upset','upset','upset','perturbar/virar'],
-        ['wake','woke','woken','acordar'],
-        ['wear','wore','worn','usar/vestir'],
-        ['weave','wove','woven','tecer'],
-        ['weep','wept','wept','chorar'],
-        ['withdraw','withdrew','withdrawn','retirar/sacar'],
-        ['withhold','withheld','withheld','reter/negar'],
-        ['withstand','withstood','withstood','resistir a'],
-        ['wring','wrung','wrung','torcer/espremer'],
-        ['forecast','forecast','forecast','prever'],
-        ['input','input','input','inserir/alimentar'],
-        ['output','output','output','produzir/emitir'],
-        ['offset','offset','offset','compensar/contrapor'],
-        ['override','overrode','overridden','sobrepor/anular'],
-        ['oversee','oversaw','overseen','supervisionar'],
-      ]
-    };
-
-    // ── Estado dos tiques ──────────────────────────────
-    // Set de strings "nivel:índice", ex: "beginner:0"
-    var _ivKnown = new Set();
-    var _ivSaveTimer = null;
-    var _ivOpen = false;
-    var _ivRendered = false;
-
-    // Chave localStorage por aluno
-    function ivKey() {
-      return 'iv_known_' + (currentStudent ? currentStudent.login : 'guest');
-    }
-
-    // ── Carregar tiques (localStorage primeiro, depois Sheets) ──
-    function ivLoad() {
-      // 1. localStorage (instantâneo)
-      try {
-        var raw = localStorage.getItem(ivKey());
-        if (raw) {
-          _ivKnown = new Set(JSON.parse(raw));
-        }
-      } catch(e) { _ivKnown = new Set(); }
-
-      // 2. Sheets (authoritative — sobrescreve localStorage)
-      if (!currentStudent) return;
-      callScript(
-        'action=get_verbos_conhecidos&login=' + encodeURIComponent(currentStudent.login),
-        function(d) {
-          if (d.success && d.verbos) {
-            try {
-              _ivKnown = new Set(Array.isArray(d.verbos) ? d.verbos : JSON.parse(d.verbos));
-              // Atualiza localStorage com dado do servidor
-              localStorage.setItem(ivKey(), JSON.stringify(Array.from(_ivKnown)));
-            } catch(e) {}
-          }
-          // Re-renderiza se o card já estiver aberto
-          if (_ivRendered) ivRefreshAll();
-        },
-        function() { /* falha silenciosa — localStorage já foi carregado */ }
-      );
-    }
-
-    // ── Salvar tiques ───────────────────────────────────
-    function ivSave() {
-      // localStorage imediato
-      try {
-        localStorage.setItem(ivKey(), JSON.stringify(Array.from(_ivKnown)));
-      } catch(e) {}
-
-      // Sheets com debounce 1.5s
-      clearTimeout(_ivSaveTimer);
-      _ivSaveTimer = setTimeout(function() {
-        if (!currentStudent) return;
-        var ind = document.getElementById('iv-saving');
-        if (ind) { ind.textContent = 'Salvando...'; ind.classList.add('show'); }
-        callScript(
-          'action=salvar_verbos_conhecidos&login=' + encodeURIComponent(currentStudent.login) +
-          '&verbos=' + encodeURIComponent(JSON.stringify(Array.from(_ivKnown))),
-          function(d) {
-            if (ind) {
-              ind.textContent = d.success ? 'Salvo ✓' : 'Erro ao salvar';
-              setTimeout(function() { ind.classList.remove('show'); }, 2000);
-            }
-          },
-          function() {
-            if (ind) {
-              ind.textContent = 'Salvo localmente';
-              setTimeout(function() { ind.classList.remove('show'); }, 2000);
-            }
-          }
-        );
-      }, 1500);
-    }
-
-    // ── Toggle de um verbo ──────────────────────────────
-    function ivToggle(level, idx) {
-      var key = level + ':' + idx;
-      var wasKnown = _ivKnown.has(key);
-      if (wasKnown) { _ivKnown.delete(key); } else { _ivKnown.add(key); }
-
-      // Atualiza UI da linha
-      var rowEl = document.getElementById('iv-row-' + level + '-' + idx);
-      var cbEl  = document.getElementById('iv-cb-'  + level + '-' + idx);
-      if (rowEl) rowEl.classList.toggle('iv-known', !wasKnown);
-      if (cbEl)  cbEl.classList.toggle('iv-checked', !wasKnown);
-
-      // Atualiza contadores e barras
-      ivUpdateStats();
-      ivSave();
-    }
-
-    // ── Render de um grid ───────────────────────────────
-    function renderIvGrid(gridId, verbs, level) {
-      var grid = document.getElementById(gridId);
-      if (!grid) return;
-      // Cabeçalhos
-      var heads = '<div class="iv-col-head"></div>' +
-        '<div class="iv-col-head">Base Form</div>' +
-        '<div class="iv-col-head">Past Simple</div>' +
-        '<div class="iv-col-head iv-col-pp">Past Participle</div>' +
-        '<div class="iv-col-head iv-col-pt">Tradução</div>';
-
-      var rows = verbs.map(function(v, i) {
-        var key     = level + ':' + i;
-        var known   = _ivKnown.has(key);
-        var rowCls  = 'iv-row' + (known ? ' iv-known' : '');
-        var cbCls   = 'iv-checkbox' + (known ? ' iv-checked' : '');
-        var checkSvg = '<svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>';
-        return '<div class="' + rowCls + '" id="iv-row-' + level + '-' + i + '" onclick="ivToggle('' + level + '',' + i + ')">' +
-          '<div class="iv-cell iv-check-cell"><div class="' + cbCls + '" id="iv-cb-' + level + '-' + i + '">' + checkSvg + '</div></div>' +
-          '<div class="iv-cell iv-base">' + v[0] + '</div>' +
-          '<div class="iv-cell">' + v[1] + '</div>' +
-          '<div class="iv-cell iv-pp">' + v[2] + '</div>' +
-          '<div class="iv-cell iv-pt"><span class="iv-tt">' + v[3] + '</span></div>' +
-        '</div>';
-      }).join('');
-
-      grid.innerHTML = heads + rows;
-    }
-
-    // ── Atualiza contadores e barras por nível ──────────
-    function ivUpdateStats() {
-      var levels = {
-        beginner:     { data: IV_DATA.beginner,     label: 'iv-beginner' },
-        intermediate: { data: IV_DATA.intermediate, label: 'iv-intermediate' },
-        advanced:     { data: IV_DATA.advanced,     label: 'iv-advanced' }
-      };
-      var totalAll = 0, knownAll = 0;
-
-      Object.keys(levels).forEach(function(level) {
-        var total = levels[level].data.length;
-        var known = 0;
-        for (var i = 0; i < total; i++) {
-          if (_ivKnown.has(level + ':' + i)) known++;
-        }
-        totalAll += total; knownAll += known;
-
-        // Mini barra de nível
-        var bar = document.getElementById('iv-prog-' + level);
-        if (bar) bar.style.width = (total ? Math.round((known/total)*100) : 0) + '%';
-
-        // Contador "X / Y" no cabeçalho
-        var cnt = document.getElementById('iv-known-' + level);
-        if (cnt) cnt.textContent = known + ' / ' + total + ' conhecidos';
-      });
-
-      // Barra e % global
-      var pct = totalAll ? Math.round((knownAll / totalAll) * 100) : 0;
-      var globalBar = document.getElementById('iv-global-bar');
-      var globalPct = document.getElementById('iv-global-pct');
-      var globalKnown = document.getElementById('iv-global-known');
-      if (globalBar)   globalBar.style.width = pct + '%';
-      if (globalPct)   globalPct.textContent = pct + '%';
-      if (globalKnown) globalKnown.textContent = knownAll;
-    }
-
-    function ivRefreshAll() {
-      renderIvGrid('iv-beginner-grid',     IV_DATA.beginner,     'beginner');
-      renderIvGrid('iv-intermediate-grid', IV_DATA.intermediate, 'intermediate');
-      renderIvGrid('iv-advanced-grid',     IV_DATA.advanced,     'advanced');
-      ivUpdateStats();
-    }
-
-    // ── Toggle principal (abrir/fechar card) ────────────
-    function toggleIrregularVerbs() {
-      var col      = document.getElementById('iv-collapse');
-      var chevSvg  = document.getElementById('iv-chevron-svg');
-      var chevWrap = document.getElementById('iv-chevron');
-      _ivOpen = !_ivOpen;
-      if (_ivOpen) {
-        col.style.maxHeight = '10000px';
-        chevSvg.style.transform = 'rotate(180deg)';
-        chevWrap.style.background = 'var(--gold-faint)';
-        if (!_ivRendered) {
-          _ivRendered = true;
-          ivRefreshAll();
-        }
-      } else {
-        col.style.maxHeight = '0';
-        chevSvg.style.transform = '';
-        chevWrap.style.background = '';
-      }
-    }
-
-    // ── Toggle de nível ─────────────────────────────────
-    function toggleIvLevel(id) {
-      var body = document.getElementById(id);
-      var chev = document.getElementById(id + '-chev');
-      var isOpen = body.classList.toggle('iv-open');
-      if (chev) chev.style.transform = isOpen ? 'rotate(180deg)' : '';
-    }
-
-    document.addEventListener('DOMContentLoaded', function() {
-      // Abre beginner por padrão
-      var begChev = document.getElementById('iv-beginner-chev');
-      if (begChev) begChev.style.transform = 'rotate(180deg)';
-      // Carrega tiques assim que o aluno estiver disponível
-      // (ivLoad() é chamado em renderDashboard)
-    });
-    </script>
 
     <!-- ── RECURSOS PREMIUM (Caderno / Locked) ── -->
     <div style="grid-column:1/-1;position:relative">
@@ -1662,7 +1317,7 @@ body{font-family:var(--sans);background:var(--off-white);color:var(--text-body);
     <!-- CURSOS DE EXPANSÃO -->
     <a href="https://institutomdtalk.github.io/expansao/" target="_blank" rel="noopener" class="card card--training reveal">
       <div class="card-pad">
-        <div class="training-badge"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/><path d="M3.05 11a9 9 0 100 .5-2.69"/></svg></div>
+        <div class="training-badge"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/><path d="M3.05 11a9 9 0 1 0 .5-2.69"/></svg></div>
         <div class="training-content">
           <p class="card-overline">Outros Cursos MD Talk</p>
           <h3 class="card-title">Cursos de Expansão</h3>
@@ -2486,6 +2141,355 @@ document.addEventListener('DOMContentLoaded', function() {
   var linkEmail=document.getElementById('link-email');
   if(linkEmail) linkEmail.addEventListener('click',function(){ this.href='mai'+'lto:mdtalk.of'+'fice@gmail.com'; });
 });
+
+// ═══════════════════════════════════════════════════════
+//  IRREGULAR VERBS — tiques persistidos
+// ═══════════════════════════════════════════════════════
+    // ═══════════════════════════════════════════════════
+    //  IRREGULAR VERBS — com tiques persistidos
+    //  Storage: localStorage (imediato) + Google Sheets (sync)
+    // ═══════════════════════════════════════════════════
+
+    var IV_DATA = {
+      beginner: [
+        ['be','was/were','been','ser/estar'],
+        ['have','had','had','ter'],
+        ['do','did','done','fazer'],
+        ['go','went','gone','ir'],
+        ['get','got','got/gotten','obter/ficar'],
+        ['come','came','come','vir'],
+        ['see','saw','seen','ver'],
+        ['know','knew','known','saber/conhecer'],
+        ['think','thought','thought','pensar'],
+        ['say','said','said','dizer'],
+        ['make','made','made','fazer/criar'],
+        ['take','took','taken','pegar/levar'],
+        ['give','gave','given','dar'],
+        ['find','found','found','encontrar'],
+        ['tell','told','told','contar/dizer'],
+        ['feel','felt','felt','sentir'],
+        ['put','put','put','colocar'],
+        ['bring','brought','brought','trazer'],
+        ['buy','bought','bought','comprar'],
+        ['keep','kept','kept','manter/guardar'],
+        ['leave','left','left','deixar/sair'],
+        ['let','let','let','deixar/permitir'],
+        ['lose','lost','lost','perder'],
+        ['meet','met','met','encontrar/conhecer'],
+        ['pay','paid','paid','pagar'],
+        ['read','read','read','ler'],
+        ['run','ran','run','correr'],
+        ['send','sent','sent','enviar'],
+        ['sit','sat','sat','sentar'],
+        ['speak','spoke','spoken','falar'],
+        ['stand','stood','stood','ficar de pé'],
+        ['teach','taught','taught','ensinar'],
+        ['write','wrote','written','escrever'],
+        ['eat','ate','eaten','comer'],
+        ['drink','drank','drunk','beber'],
+        ['sleep','slept','slept','dormir'],
+        ['hear','heard','heard','ouvir'],
+        ['hold','held','held','segurar/manter'],
+        ['sell','sold','sold','vender'],
+        ['win','won','won','vencer/ganhar'],
+      ],
+      intermediate: [
+        ['arise','arose','arisen','surgir/levantar'],
+        ['bear','bore','born/borne','suportar/carregar'],
+        ['beat','beat','beaten','bater/vencer'],
+        ['become','became','become','tornar-se'],
+        ['begin','began','begun','começar'],
+        ['bend','bent','bent','curvar/dobrar'],
+        ['bind','bound','bound','ligar/amarrar'],
+        ['bite','bit','bitten','morder'],
+        ['bleed','bled','bled','sangrar'],
+        ['blow','blew','blown','soprar'],
+        ['break','broke','broken','quebrar'],
+        ['breed','bred','bred','criar/reproduzir'],
+        ['build','built','built','construir'],
+        ['burn','burned/burnt','burned/burnt','queimar'],
+        ['burst','burst','burst','explodir'],
+        ['catch','caught','caught','pegar/capturar'],
+        ['choose','chose','chosen','escolher'],
+        ['cut','cut','cut','cortar'],
+        ['deal','dealt','dealt','lidar/negociar'],
+        ['dig','dug','dug','cavar'],
+        ['draw','drew','drawn','desenhar/puxar'],
+        ['dream','dreamed/dreamt','dreamed/dreamt','sonhar'],
+        ['drive','drove','driven','dirigir'],
+        ['fall','fell','fallen','cair'],
+        ['feed','fed','fed','alimentar'],
+        ['fight','fought','fought','lutar'],
+        ['fly','flew','flown','voar'],
+        ['forbid','forbade','forbidden','proibir'],
+        ['forget','forgot','forgotten','esquecer'],
+        ['forgive','forgave','forgiven','perdoar'],
+        ['freeze','froze','frozen','congelar'],
+        ['grow','grew','grown','crescer'],
+        ['hang','hung','hung','pendurar'],
+        ['hide','hid','hidden','esconder'],
+        ['hit','hit','hit','acertar/bater'],
+        ['hurt','hurt','hurt','machucar'],
+        ['lay','laid','laid','colocar/deitar'],
+        ['lead','led','led','liderar/conduzir'],
+        ['learn','learned/learnt','learned/learnt','aprender'],
+        ['lend','lent','lent','emprestar'],
+        ['lie','lay','lain','deitar-se'],
+        ['light','lit','lit','acender'],
+        ['mean','meant','meant','significar'],
+        ['ride','rode','ridden','andar/cavalgar'],
+        ['ring','rang','rung','tocar/ligar'],
+        ['rise','rose','risen','subir/levantar'],
+        ['set','set','set','definir/ajustar'],
+        ['shake','shook','shaken','sacudir'],
+        ['show','showed','shown','mostrar'],
+        ['shut','shut','shut','fechar'],
+        ['sing','sang','sung','cantar'],
+      ],
+      advanced: [
+        ['sink','sank','sunk','afundar'],
+        ['smell','smelled/smelt','smelled/smelt','cheirar'],
+        ['spell','spelled/spelt','spelled/spelt','soletrar'],
+        ['spend','spent','spent','gastar/passar tempo'],
+        ['spin','spun','spun','girar/fiar'],
+        ['spread','spread','spread','espalhar'],
+        ['spring','sprang','sprung','pular/brotar'],
+        ['steal','stole','stolen','roubar'],
+        ['stick','stuck','stuck','grudar/fixar'],
+        ['sting','stung','stung','picar/ferroar'],
+        ['stink','stank','stunk','feder'],
+        ['stride','strode','stridden','caminhar a passos largos'],
+        ['strike','struck','struck','golpear/bater'],
+        ['strive','strove','striven','esforçar-se'],
+        ['swear','swore','sworn','jurar/xingar'],
+        ['sweep','swept','swept','varrer'],
+        ['swim','swam','swum','nadar'],
+        ['swing','swung','swung','balançar'],
+        ['tear','tore','torn','rasgar'],
+        ['throw','threw','thrown','jogar/lançar'],
+        ['thrust','thrust','thrust','empurrar com força'],
+        ['tread','trod','trodden','pisar'],
+        ['undergo','underwent','undergone','submeter-se a'],
+        ['understand','understood','understood','entender'],
+        ['undo','undid','undone','desfazer'],
+        ['upset','upset','upset','perturbar/virar'],
+        ['wake','woke','woken','acordar'],
+        ['wear','wore','worn','usar/vestir'],
+        ['weave','wove','woven','tecer'],
+        ['weep','wept','wept','chorar'],
+        ['withdraw','withdrew','withdrawn','retirar/sacar'],
+        ['withhold','withheld','withheld','reter/negar'],
+        ['withstand','withstood','withstood','resistir a'],
+        ['wring','wrung','wrung','torcer/espremer'],
+        ['forecast','forecast','forecast','prever'],
+        ['input','input','input','inserir/alimentar'],
+        ['output','output','output','produzir/emitir'],
+        ['offset','offset','offset','compensar/contrapor'],
+        ['override','overrode','overridden','sobrepor/anular'],
+        ['oversee','oversaw','overseen','supervisionar'],
+      ]
+    };
+
+    // ── Estado dos tiques ──────────────────────────────
+    // Set de strings "nivel:índice", ex: "beginner:0"
+    var _ivKnown = new Set();
+    var _ivSaveTimer = null;
+    var _ivOpen = false;
+    var _ivRendered = false;
+
+    // Chave localStorage por aluno
+    function ivKey() {
+      return 'iv_known_' + (currentStudent ? currentStudent.login : 'guest');
+    }
+
+    // ── Carregar tiques (localStorage primeiro, depois Sheets) ──
+    function ivLoad() {
+      // 1. localStorage (instantâneo)
+      try {
+        var raw = localStorage.getItem(ivKey());
+        if (raw) {
+          _ivKnown = new Set(JSON.parse(raw));
+        }
+      } catch(e) { _ivKnown = new Set(); }
+
+      // 2. Sheets (authoritative — sobrescreve localStorage)
+      if (!currentStudent) return;
+      callScript(
+        'action=get_verbos_conhecidos&login=' + encodeURIComponent(currentStudent.login),
+        function(d) {
+          if (d.success && d.verbos) {
+            try {
+              _ivKnown = new Set(Array.isArray(d.verbos) ? d.verbos : JSON.parse(d.verbos));
+              // Atualiza localStorage com dado do servidor
+              localStorage.setItem(ivKey(), JSON.stringify(Array.from(_ivKnown)));
+            } catch(e) {}
+          }
+          // Re-renderiza se o card já estiver aberto
+          if (_ivRendered) ivRefreshAll();
+        },
+        function() { /* falha silenciosa — localStorage já foi carregado */ }
+      );
+    }
+
+    // ── Salvar tiques ───────────────────────────────────
+    function ivSave() {
+      // localStorage imediato
+      try {
+        localStorage.setItem(ivKey(), JSON.stringify(Array.from(_ivKnown)));
+      } catch(e) {}
+
+      // Sheets com debounce 1.5s
+      clearTimeout(_ivSaveTimer);
+      _ivSaveTimer = setTimeout(function() {
+        if (!currentStudent) return;
+        var ind = document.getElementById('iv-saving');
+        if (ind) { ind.textContent = 'Salvando...'; ind.classList.add('show'); }
+        callScript(
+          'action=salvar_verbos_conhecidos&login=' + encodeURIComponent(currentStudent.login) +
+          '&verbos=' + encodeURIComponent(JSON.stringify(Array.from(_ivKnown))),
+          function(d) {
+            if (ind) {
+              ind.textContent = d.success ? 'Salvo ✓' : 'Erro ao salvar';
+              setTimeout(function() { ind.classList.remove('show'); }, 2000);
+            }
+          },
+          function() {
+            if (ind) {
+              ind.textContent = 'Salvo localmente';
+              setTimeout(function() { ind.classList.remove('show'); }, 2000);
+            }
+          }
+        );
+      }, 1500);
+    }
+
+    // ── Toggle de um verbo ──────────────────────────────
+    function ivToggle(level, idx) {
+      var key = level + ':' + idx;
+      var wasKnown = _ivKnown.has(key);
+      if (wasKnown) { _ivKnown.delete(key); } else { _ivKnown.add(key); }
+
+      // Atualiza UI da linha
+      var rowEl = document.getElementById('iv-row-' + level + '-' + idx);
+      var cbEl  = document.getElementById('iv-cb-'  + level + '-' + idx);
+      if (rowEl) rowEl.classList.toggle('iv-known', !wasKnown);
+      if (cbEl)  cbEl.classList.toggle('iv-checked', !wasKnown);
+
+      // Atualiza contadores e barras
+      ivUpdateStats();
+      ivSave();
+    }
+
+    // ── Render de um grid ───────────────────────────────
+    function renderIvGrid(gridId, verbs, level) {
+      var grid = document.getElementById(gridId);
+      if (!grid) return;
+      // Cabeçalhos
+      var heads = '<div class="iv-col-head"></div>' +
+        '<div class="iv-col-head">Base Form</div>' +
+        '<div class="iv-col-head">Past Simple</div>' +
+        '<div class="iv-col-head iv-col-pp">Past Participle</div>' +
+        '<div class="iv-col-head iv-col-pt">Tradução</div>';
+
+      var rows = verbs.map(function(v, i) {
+        var key     = level + ':' + i;
+        var known   = _ivKnown.has(key);
+        var rowCls  = 'iv-row' + (known ? ' iv-known' : '');
+        var cbCls   = 'iv-checkbox' + (known ? ' iv-checked' : '');
+        var checkSvg = '<svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>';
+        var onclick_val = 'ivToggle(\'' + level + '\',' + i + ')';
+        return '<div class="' + rowCls + '" id="iv-row-' + level + '-' + i + '" onclick="' + onclick_val + '">' +
+          '<div class="iv-cell iv-check-cell"><div class="' + cbCls + '" id="iv-cb-' + level + '-' + i + '">' + checkSvg + '</div></div>' +
+          '<div class="iv-cell iv-base">' + v[0] + '</div>' +
+          '<div class="iv-cell">' + v[1] + '</div>' +
+          '<div class="iv-cell iv-pp">' + v[2] + '</div>' +
+          '<div class="iv-cell iv-pt"><span class="iv-tt">' + v[3] + '</span></div>' +
+        '</div>';
+      }).join('');
+
+      grid.innerHTML = heads + rows;
+    }
+
+    // ── Atualiza contadores e barras por nível ──────────
+    function ivUpdateStats() {
+      var levels = {
+        beginner:     { data: IV_DATA.beginner,     label: 'iv-beginner' },
+        intermediate: { data: IV_DATA.intermediate, label: 'iv-intermediate' },
+        advanced:     { data: IV_DATA.advanced,     label: 'iv-advanced' }
+      };
+      var totalAll = 0, knownAll = 0;
+
+      Object.keys(levels).forEach(function(level) {
+        var total = levels[level].data.length;
+        var known = 0;
+        for (var i = 0; i < total; i++) {
+          if (_ivKnown.has(level + ':' + i)) known++;
+        }
+        totalAll += total; knownAll += known;
+
+        // Mini barra de nível
+        var bar = document.getElementById('iv-prog-' + level);
+        if (bar) bar.style.width = (total ? Math.round((known/total)*100) : 0) + '%';
+
+        // Contador "X / Y" no cabeçalho
+        var cnt = document.getElementById('iv-known-' + level);
+        if (cnt) cnt.textContent = known + ' / ' + total + ' conhecidos';
+      });
+
+      // Barra e % global
+      var pct = totalAll ? Math.round((knownAll / totalAll) * 100) : 0;
+      var globalBar = document.getElementById('iv-global-bar');
+      var globalPct = document.getElementById('iv-global-pct');
+      var globalKnown = document.getElementById('iv-global-known');
+      if (globalBar)   globalBar.style.width = pct + '%';
+      if (globalPct)   globalPct.textContent = pct + '%';
+      if (globalKnown) globalKnown.textContent = knownAll;
+    }
+
+    function ivRefreshAll() {
+      renderIvGrid('iv-beginner-grid',     IV_DATA.beginner,     'beginner');
+      renderIvGrid('iv-intermediate-grid', IV_DATA.intermediate, 'intermediate');
+      renderIvGrid('iv-advanced-grid',     IV_DATA.advanced,     'advanced');
+      ivUpdateStats();
+    }
+
+    // ── Toggle principal (abrir/fechar card) ────────────
+    function toggleIrregularVerbs() {
+      var col      = document.getElementById('iv-collapse');
+      var chevSvg  = document.getElementById('iv-chevron-svg');
+      var chevWrap = document.getElementById('iv-chevron');
+      _ivOpen = !_ivOpen;
+      if (_ivOpen) {
+        col.style.maxHeight = '10000px';
+        chevSvg.style.transform = 'rotate(180deg)';
+        chevWrap.style.background = 'var(--gold-faint)';
+        if (!_ivRendered) {
+          _ivRendered = true;
+          ivRefreshAll();
+        }
+      } else {
+        col.style.maxHeight = '0';
+        chevSvg.style.transform = '';
+        chevWrap.style.background = '';
+      }
+    }
+
+    // ── Toggle de nível ─────────────────────────────────
+    function toggleIvLevel(id) {
+      var body = document.getElementById(id);
+      var chev = document.getElementById(id + '-chev');
+      var isOpen = body.classList.toggle('iv-open');
+      if (chev) chev.style.transform = isOpen ? 'rotate(180deg)' : '';
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      // Abre beginner por padrão
+      var begChev = document.getElementById('iv-beginner-chev');
+      if (begChev) begChev.style.transform = 'rotate(180deg)';
+      // Carrega tiques assim que o aluno estiver disponível
+      // (ivLoad() é chamado em renderDashboard)
+    });
+
 
 // ── INIT ──
 window.addEventListener('load', function(){
